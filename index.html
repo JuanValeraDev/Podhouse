@@ -1,40 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<html lang="es">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PodHouse</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="estilos.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-
 </head>
-<header class="container">
-    <div class="row">
-        <h1 class="col">Juan Valera Productions</h1>
-        <p class="col">En esta casa solo entra lo mejor de lo mejor</p>
-        <button class="col">Empezar</button>
-    </div>
-    <div class="row">
-        <div class="flex-column col">
-            <p class="col">Disponible para todos los dispositivos.
-                Absolutamente todos.
-                También la tostadora.
-            </p>
-            <button class="col">Empezar</button>
-        </div>
-        <div class="flex-column col">
-            <p class="col">Aquí va la imagen del fondo del movil
-            </p>
-            <p class="col">Aquí va la imagen del movil</p>
-        </div>
+
+<body>
+
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-around py-3 mb-4 border-bottom">
+            <h1 class="fs-4">PodHouse</h1>
+            <p>La casa de los podcasts</p>
+            <img src="img/pngwing.com (1).png" alt="logo">
+        </header>
     </div>
 
-</header>
+    <div class="container vh-100 primer-panel">
+        <div class="row">
+            <div class="col-6 eslogan">Bienvenido a PodHouse</div>
+            <div class="col-6 cta">CTA</div>
+        </div>
+        <div class="row">
+            <div class="col-6 imagenPortada">Imagen en portada</div>
+            <div class="col-6 textoPortada">Pequeño párrafo disuasorio</div>
+        </div>
+    
+    </div>
+    <div class="container vh-100 segundo-panel mt-4">
+        <div class="row">
+            <input type="search" class="col-8 buscador"></input>
+        </div>
+        <div class="row">
+            <div class="col-10 tabla">Aquí va la tabla</div>
+        </div>
+    </div>
 
-<body class="container-fluid p-0 min-vh-100 d-flex flex-column">
 
+    <div class="container">
+        <footer class="py-3 my-4">
+            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+                <li>
+                    <p class="px-2 text-muted">Botón 1</p>
+                </li>
+                <li>
+                    <p class="px-2 text-muted">Botón 2</p>
+                </li>
+                <li>
+                    <p class="px-2 text-muted">Botón 3</p>
+                </li>
+            </ul>
+
+            <div class="row">
+            <p class="col text-center text-muted">Juan Valera Productions</p>
+            <p class="col text-center text-muted"> <img src="img/pngwing.com (1).png" alt="logo"></p>
+           
+        </div>
+        </footer>
+    </div>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
 </body>
 
 </html>
