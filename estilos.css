@@ -7,7 +7,9 @@ header{
     display: flex;
     justify-content: space-around;
     font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    
 }
+
 header p{
     color: #FFFBEB;
     font-family: Cochin, Georgia, Times, 'Times New Roman', serif;;
@@ -20,8 +22,9 @@ footer img{
     height: 2rem;
 }
 .primer-panel, .segundo-panel{
-    background-color: #FFFBEB;
-    border: 4px solid #251749;
+
+    background-color: #251749;
+    border: 4px solid #FFFBEB;
 }
 .eslogan, .cta, .imagenPortada, .textoPortada{
     text-align: center;
@@ -31,11 +34,20 @@ footer img{
     padding: 7%;
     font-family: Cochin, Georgia, Times, 'Times New Roman', serif;;
 }
+.imagenPortada{
+    background-image: url("img/richard-horvath-_nWaeTF6qo0-unsplash.jpg");
+}
 .tabla{
     text-align: center;
     padding: 15%;
     border:4px solid #251749;
 }
 .buscador{
-    margin: 2%;
+    margin:  2%;
+    height: auto;
 }
+button{
+    margin: 2%;
+    height: min-content;
+}
+
