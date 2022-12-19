@@ -1,53 +1,73 @@
-body{
-    background-color: #495579;
-}
-header{
-    color:#FFFBEB;
-    background-color: #263159;
-    display: flex;
-    justify-content: space-around;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+body {
+
+    background-image: url("img/richard-horvath-azul-claro-grande.jpg");
+    background-size: cover;
     
 }
 
-header p{
+header {
     color: #FFFBEB;
-    font-family: Cochin, Georgia, Times, 'Times New Roman', serif;;
+    background-image: url("img/richard-horvath-_nWaeTF6qo0-unsplash.jpg");
+    display: flex;
+    justify-content: space-around;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
 }
-header img{
+
+
+
+header img {
     height: 2rem;
 }
 
+footer{
+  display: flex;
+  justify-content: space-around;
+    background-image: url("img/richard-horvath-_nWaeTF6qo0-unsplash.jpg");
+    color: #FFFBEB;
+}
 footer img{
     height: 2rem;
 }
-.primer-panel, .segundo-panel{
 
-    background-color: #251749;
-    border: 4px solid #FFFBEB;
+.primer-panel,
+.segundo-panel {
+  /* background-color: white;
+    opacity: 70%;
+    border: #251749 4px;
+*/
+color: #FFFBEB;
 }
-.eslogan, .cta, .imagenPortada, .textoPortada{
+
+.primer-panel {
+    min-height: max-content;
+}
+
+.eslogan,
+.cta,
+.imagenPortada,
+.textoPortada {
     text-align: center;
-    align-items: baseline;
     justify-content: center;
-    font-size: 2em;
-    padding: 7%;
-    font-family: Cochin, Georgia, Times, 'Times New Roman', serif;;
+    font-size: 3em;
+    font-family: 'Laila', serif;
+    height: 6em;
 }
-.imagenPortada{
-    background-image: url("img/richard-horvath-_nWaeTF6qo0-unsplash.jpg");
+
+.botonera{
+    align-items: center;
+    gap: 1em;
+    justify-content: center;
 }
-.tabla{
+
+
+.tabla {
     text-align: center;
     padding: 15%;
-    border:4px solid #251749;
-}
-.buscador{
-    margin:  2%;
-    height: auto;
-}
-button{
-    margin: 2%;
-    height: min-content;
+    border: 4px solid #251749;
 }
 
+.buscador {
+    margin: 2%;
+    height: auto;
+}

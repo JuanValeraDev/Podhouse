@@ -8,64 +8,115 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <link rel="stylesheet" href="estilos.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Laila&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body class="column flex-grow-1 m-0">
 
-    <div class="container position-sticky">
-        <header class="d-flex flex-wrap justify-content-around py-3 mb-4 border-bottom fixed-top">
-            <h1 class="fs-4">PodHouse</h1>
-            <p>La casa de los podcasts</p>
-            <img src="img/pngwing.com (1).png" alt="logo">
-        </header>
-    </div>
 
-    <div class="container vh-100 primer-panel overflow-hidden">
-        <div class="row gx-5">
-            <div class="col-6 eslogan">Bienvenido a PodHouse</div>
-            <div class="col-6 cta">CTA</div>
-    </div>  
-        <div class="row gx-5">
-          <div class="col-6 imagenPortada">Imagen en portada</div>
-          <div class="col-6 textoPortada">Pequeño párrafo disuasorio</div>
-    </div>  
-    
-</div>  
-<div class="container vh-100 segundo-panel mt-4 overflow-hidden">
-    <div class="row gx-5">  
-        <input type="search" class="col-md-6  buscador flex-wrap"></input>
-        <button type="button" class="col-md-1  btn btn-dark ">Editar</button>
-        <button type="button" class="col-md-1  btn btn-dark ">Insertar</button>
-          <button type="button" class="col-md-1  btn btn-dark ">Borrar</button>
+    <header class="d-flex flex-wrap justify-content-around py-3 mb-4 fixed-top">
+        <h1 class="fs-4">PodHouse</h1>
+        <p>La casa de los podcasts</p>
+        <img src="img/pngwing.com (1).png" alt="logo">
+    </header>
 
-     </div>
-        <div class="row justify-content-center flex-wrap">
-            <div class="col-10 tabla">Aquí va la tabla</div>
+    <div class="container primer-panel border border-4">
+        <div class="row p-4 mt-4">
+            <div class="col eslogan d-flex align-items-end border">Bienvenido a PodHouse</div>
+            <div class="col cta d-flex align-items-end border">CTA</div>
+        </div>
+        <div class="row">
+            <div class="col imagenPortada overflow-hidden border">
+                <img src="img/milad-fakurian-E8Ufcyxz514-unsplash.jpg" alt="micro" class="w-100 h-100">
+            </div>
+            <div class="col textoPortada border">Pequeño párrafo disuasorio</div>
         </div>
     </div>
 
 
-    <div class="container">
-        <footer class="py-3 my-4">
-            <ul class="nav justify-content-center border-bottom pb-3 mb-3">
-                <li>
-                    <p class="px-2 text-muted">Botón 1</p>
-                </li>
-                <li>
-                    <p class="px-2 text-muted">Botón 2</p>
-                </li>
-                <li>
-                    <p class="px-2 text-muted">Botón 3</p>
-                </li>
-            </ul>
+    <div class="container  segundo-panel mt-4 overflow-hidden border border-4">
 
-            <div class="row">
-            <p class="col text-center text-muted">Juan Valera Productions</p>
-            <p class="col text-center text-muted"> <img src="img/pngwing.com (1).png" alt="logo"></p>
-           
+        <div class="row gx-5 d-flex align-items-center">
+            <input type="search" class="col-md-6 col buscador flex-wrap"></input>
+            <div class="botonera d-flex col row gx-5">
+            <button type="button" class="col-md-2  btn btn-dark ">Editar</button>
+            <button type="button" class="col-md-2  btn btn-dark ">Insertar</button>
+            <button type="button" class="col-md-2  btn btn-dark ">Borrar</button>
         </div>
-        </footer>
+
+        </div>
+        <div class="row justify-content-center d-flex flex-wrap">
+            <div class="col tabla overflow-auto">
+                <table class="table table-success table-striped table-hover">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="col-lg-4">Programa</th>
+                            <th class="col-lg-1">Episodio</th>
+                            <th class="col-lg-1">Fecha</th>
+                            <th class="col-lg-3">Descripción</th>
+                            <th class="col-lg-1">Puntuación</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <p>Aquí hay dragones</p>
+                            </td>
+                            <td>
+                                <p>S06xE04</p>
+                            </td>
+                            <td>
+                                <p>16/05/2020</p>
+                            </td>
+                            <td >
+                                <p>Programa chulo</p>
+                            </td>
+                            <td>
+                                <meter value="4" min="0" max="5"></meter>
+                                <span><output>4</output> de 5</span></p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p>Las noches de Ortega</p>
+                            </td>
+                            <td>
+                                <p>S04xE06</p>
+                            </td>
+                            <td>
+                                <p>17/05/2022</p>
+                            </td>
+                            <td >
+                                <p>Programa chulísimo</p>
+                            </td>
+                            <td>
+                                <meter value="4" min="0" max="5"></meter>
+                                <span><output>4</output> de 5</span></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+    </div>
+    </div>
+
+  <!-- <header class="d-flex flex-wrap justify-content-around py-3 mb-4 fixed-top">
+        <h1 class="fs-4">PodHouse</h1>
+        <p>La casa de los podcasts</p>
+        <img src="img/pngwing.com (1).png" alt="logo">
+    </header>
+-->
+
+    <footer class="py-3 mt-4 d-flex flex-wrap justify-content-around">
+        <img src="img/pngwing.com (1).png" alt="logo">
+        <p class="text-center">Juan Valera Productions</p>
+       
+    </footer>
+
 
 
 
