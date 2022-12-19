@@ -6,11 +6,11 @@ body {
 }
 
 header {
-    color: #FFFBEB;
+    color: aqua;
     background-image: url("img/richard-horvath-_nWaeTF6qo0-unsplash.jpg");
     display: flex;
     justify-content: space-around;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-family: 'Laila', serif;
 
 }
 
@@ -24,20 +24,13 @@ footer{
   display: flex;
   justify-content: space-around;
     background-image: url("img/richard-horvath-_nWaeTF6qo0-unsplash.jpg");
-    color: #FFFBEB;
+    color: aqua;
 }
 footer img{
     height: 2rem;
 }
 
-.primer-panel,
-.segundo-panel {
-  /* background-color: white;
-    opacity: 70%;
-    border: #251749 4px;
-*/
-color: #FFFBEB;
-}
+
 
 .primer-panel {
     min-height: max-content;
@@ -52,6 +45,19 @@ color: #FFFBEB;
     font-size: 3em;
     font-family: 'Laila', serif;
     height: 6em;
+}
+.textoPortada{
+    font-size: large;
+    background-color: rgba(37, 28, 108,0.7);
+
+}
+
+.eslogan{
+    color: aqua;
+}
+.cta, .textoPortada{
+    color: aqua;
+    align-self: flex-end;
 }
 
 .botonera{
@@ -68,6 +74,4 @@ color: #FFFBEB;
 }
 
 .buscador {
-    margin: 2%;
-    height: auto;
 }
