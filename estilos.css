@@ -1,35 +1,43 @@
 body {
 
-    background-image: url("img/richard-horvath-azul-claro-grande.jpg");
-    background-size: cover;
-    
+    background-image: url("img/background-white-colorBueno.png");
+    background-size: contain;
+    background-color: #FFFBEB;
+
+
 }
 
 header {
-    color: aqua;
-    background-image: url("img/richard-horvath-_nWaeTF6qo0-unsplash.jpg");
+    color: #FFFBEB;
+    background-color: #263159;
     display: flex;
     justify-content: space-around;
     font-family: 'Laila', serif;
+    background-size: cover;
 
 }
 
+.btn {
+    color: #FFFBEB;
+    background-color: #251749;
+    border: #251749 4px solid;
 
 
-header img {
-    height: 2rem;
+
 }
 
-footer{
-  display: flex;
-  justify-content: space-around;
-    background-image: url("img/richard-horvath-_nWaeTF6qo0-unsplash.jpg");
-    color: aqua;
-}
-footer img{
-    height: 2rem;
+.btn:hover {
+    color: #251749;
+    border: #251749 4px solid;
 }
 
+footer {
+    display: flex;
+    justify-content: space-around;
+    background-color: #263159;
+    background-size: cover;
+    color: #FFFBEB;
+}
 
 
 .primer-panel {
@@ -45,33 +53,80 @@ footer img{
     font-size: 3em;
     font-family: 'Laila', serif;
     height: 6em;
+    flex-shrink: 0;
 }
-.textoPortada{
+
+.textoPortada {
     font-size: large;
-    background-color: rgba(37, 28, 108,0.7);
+    background-color: #263159;
 
 }
 
-.eslogan{
-    color: aqua;
+.eslogan {
+    color: #251749;
 }
-.cta, .textoPortada{
-    color: aqua;
+
+.cta,
+.textoPortada {
+    color: #FFFBEB;
     align-self: flex-end;
 }
 
-.botonera{
+.botonera {
     align-items: center;
     gap: 1em;
     justify-content: center;
 }
 
-
-.tabla {
-    text-align: center;
-    padding: 15%;
-    border: 4px solid #251749;
+thead>tr {
+    background-color: #251749;
+    color: #FFFBEB;
 }
 
-.buscador {
+tr {
+    border: #251749 9px;
 }
+
+tbody>tr:hover p {
+    color: #FFFBEB;
+}
+
+tbody>tr:hover {
+    background-color: #251749;
+}
+
+
+
+@media (max-width: 766px) {
+    .cta {
+        height: 1em;
+    }
+}
+
+.play:hover {
+    animation: botonPlay 0.5s forwards;
+}
+
+@keyframes botonPlay {
+    100% {
+        transform: scale(2);
+    }
+}
+
+.reproductor-completo{
+    background-color: #263159;
+    color: #FFFBEB;
+    border: black 2px;
+    display: block;
+}
+
+.reproductor-completo {
+    position: fixed; 
+    top: 25%; 
+    left: 75%;  
+  }
+  
+
+
+
+

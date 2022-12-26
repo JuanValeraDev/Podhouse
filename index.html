@@ -11,54 +11,58 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Laila&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 
 <body class="column flex-grow-1 m-0">
 
 
-    <header class="d-flex flex-wrap justify-content-around py-3 mb-4 fixed-top">
+    <header class="justify-content-around py-3 mb-4 fixed-top">
         <h1 class="fs-4">PodHouse</h1>
         <p>La casa de los podcasts</p>
-        <img src="img/pngwing.com (1).png" alt="logo">
+        </div>
     </header>
+   
 
     <div class="container primer-panel">
-        <div class="row p-4 mt-4">
-            <div class="col eslogan d-flex align-items-end ">Bienvenido a PodHouse</div>
-            <div class="col cta d-flex align-items-end">
-                <button type="button" class="btn btn-info shadow">¡Empieza a escuchar!</button>
+        <div class="row p-4 mt-md-4">
+            <div class="col-md eslogan d-flex align-items-end ">Bienvenido a PodHouse</div>
+            <div class="col-md cta d-flex align-items-end">
+                <button type="button" class="btn shadow">¡Empieza a escuchar!</button>
             </div>
         </div>
-        <div class="row">
-            <div class="col imagenPortada overflow-hidden">
-                <img src="img/milad-fakurian-E8Ufcyxz514-unsplash.jpg" alt="micro"
-                    class="w-100 h-100 rounded-4 opacity-40">
+        <div class="row justify-content-md-center">
+            <div class="col-lg col-md-10  imagenPortada overflow-hidden align-items-end">
+                <img src="img/harry-cunningham-HwUR0KOTLG0-unsplash.jpg" alt="estudioDeGrabacion"
+                    class="rounded-4 opacity-40 h-100 w-100">
             </div>
-            <div class="col textoPortada w-100 h-100 rounded-4 align-items-end py-4">
+            <div class="col-lg textoPortada w-100 h-100 rounded-4 align-items-end py-4 mt-4">
                 Descubre ahora el mejor lugar para los mejores podcasts.
             </div>
         </div>
     </div>
 
 
-    <div class="container  segundo-panel mt-4 overflow-hidden ">
-        <div class="row gx-5 d-flex align-items-center my-4">
-            <input type="search" class="col-md-6 col buscador flex-wrap"></input>
-            <div class="botonera d-flex col-md-6 gx-5">
-                <button type="button" class="col-md-2  btn btn-dark ">Editar</button>
-                <button type="button" class="col-md-2  btn btn-dark ">Insertar</button>
-                <button type="button" class="col-md-2  btn btn-dark ">Borrar</button>
+    <div class="container segundo-panel mt-2 overflow-hidden ">
+        <div class="row gx-5 d-flex align-items-center my-4 justify-content-center">
+
+            <input type="search" class="col-md-5 col-10 buscador" placeholder="Busca aquí tu programa"></input>
+
+            <div class="botonera d-flex col-md-6 gx-5 mt-2">
+                <button type="button" class="col-md-3  btn shadow my-2">Editar</button>
+                <button type="button" class="col-md-3  btn shadow my-2">Insertar</button>
+                <button type="button" class="col-md-3  btn shadow my-2">Borrar</button>
             </div>
         </div>
-        <div class="row justify-content-center d-flex flex-wrap ">
-            <table class="table table-success table-striped table-hover overflow-auto">
-                <thead class="table-info">
+        <div class="row justify-content-center d-flex flex-wrap mx-4">
+            <table class="table  table-striped table-hover overflow-auto">
+                <thead>
                     <tr>
-                        <th class="col-lg-2">Programa</th>
+                        <th class="col-lg-3">Programa</th>
                         <th class="col-lg-1">Episodio</th>
+                        <th class="col-lg-1">Temporada</th>
                         <th class="col-lg-1">Fecha</th>
-                        <th class="col-lg-2">Descripción</th>
-                        <th class="col-lg-1">Puntuación</th>
+                        <th class="col-lg-1"></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -67,56 +71,111 @@
                             <p>Aquí hay dragones</p>
                         </td>
                         <td>
-                            <p>S06xE04</p>
+                            <p>6</p>
                         </td>
                         <td>
-                            <p>16/05/2020</p>
+                            <p>4</p>
                         </td>
                         <td>
-                            <p>Programa chulo</p>
+                            <p>27/02/2022</p>
                         </td>
                         <td>
-                            <meter value="4" min="0" max="5"></meter>
-                            <span><output>4</output> de 5</span></p>
+                            <p><span class="material-icons play">
+                                    play_circle
+                                </span></p>
                         </td>
+
                     </tr>
                     <tr>
                         <td>
                             <p>Las noches de Ortega</p>
                         </td>
                         <td>
-                            <p>S04xE06</p>
+                            <p>7</p>
                         </td>
                         <td>
-                            <p>17/05/2022</p>
+                            <p>2</p>
                         </td>
                         <td>
-                            <p>Programa chulísimo</p>
+                            <p>14/02/2021</p>
                         </td>
                         <td>
-                            <meter value="4" min="0" max="5"></meter>
-                            <span><output>4</output> de 5</span></p>
+                            <p><span class="material-icons play">
+                                    play_circle
+                                </span></p>
                         </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Comedia Perpetua</p>
+                        </td>
+                        <td>
+                            <p>4</p>
+                        </td>
+                        <td>
+                            <p>2</p>
+                        </td>
+                        <td>
+                            <p>06/04/2020</p>
+                        </td>
+                        <td>
+                            <p><span class="material-icons play">
+                                    play_circle
+                                </span></p>
+                        </td>
+
+                    </tr>
+                    <tr>
+                        <td>
+                            <p>Movidas Minúsculas</p>
+                        </td>
+                        <td>
+                            <p>23</p>
+                        </td>
+                        <td>
+                            <p>1</p>
+                        </td>
+                        <td>
+                            <p>30/12/2021</p>
+                        </td>
+                        <td>
+                            <p><span class="material-icons play">
+                                    play_circle
+                                </span></p>
+                        </td>
+
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
 
+    <div class="reproductor-completo elemento-flotante mb-3 w-25 h-20 d-flex flex-wrap p-2 rounded-4 fixed-bottom">
+        <div class="row">
+            <img src="img/AHD.jpg" alt="AHD" class="p-4 align-items-center col">
+        </div>
+        <div class=" col w-100 ">
+            <h5 class="">Titulo del programa</h5>
+            <audio src="audios/AHD 1x98 22_12_2022.mp3" class="reproductor w-100" controls></audio>
+            <p class="">Aquí va la descripción del episodio</p>
 
-        <footer class="py-3 mt-4 d-flex flex-wrap justify-content-around">
-            <img src="img/pngwing.com (1).png" alt="logo">
-            <p class="text-center">Juan Valera Productions</p>
-
-        </footer>
+        </div>
+    </div>
 
 
+    <footer class="py-3 mt-4 d-flex flex-wrap justify-content-around">
+        <p class="text-center">Juan Valera Productions</p>
+    </footer>
+
+   
 
 
 
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
-            crossorigin="anonymous"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+        crossorigin="anonymous"></script>
+    
 </body>
 
 </html>
