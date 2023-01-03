@@ -1,8 +1,15 @@
+/*
+TODO: Los botones de reproducir en la tabla no se ven cuando se les hace hover.
+TODO: Que al pinchar en una fila de la tabla se quede seleccionada.
+
+*/
+
 body {
 
     background-image: url("img/background-white-colorBueno.png");
     background-size: contain;
     background-color: #FFFBEB;
+    position: relative;
 
 
 }
@@ -17,13 +24,10 @@ header {
 
 }
 
-.btn {
+.btn{
     color: #FFFBEB;
     background-color: #251749;
     border: #251749 4px solid;
-
-
-
 }
 
 .btn:hover {
@@ -52,14 +56,15 @@ footer {
     justify-content: center;
     font-size: 3em;
     font-family: 'Laila', serif;
-    height: 6em;
-    flex-shrink: 0;
+    height: 5em;
+    flex-shrink: 1;
 }
 
 .textoPortada {
     font-size: large;
-    background-color: #263159;
-
+    background: rgb(255,251,235);
+    background: linear-gradient(27deg, rgba(255,251,235,1) 5%, rgba(38,49,89,1) 5%, rgba(38,49,89,1) 95%, rgba(255,251,235,1) 95%);
+    border: #251749 4px solid;
 }
 
 .eslogan {
@@ -70,6 +75,9 @@ footer {
 .textoPortada {
     color: #FFFBEB;
     align-self: flex-end;
+}
+.buscador{
+    border: #251749 3px solid;
 }
 
 .botonera {
@@ -84,49 +92,95 @@ thead>tr {
 }
 
 tr {
-    border: #251749 9px;
+    border: #251749;
 }
 
-tbody>tr:hover p {
+tbody>tr:hover p {  
     color: #FFFBEB;
 }
 
 tbody>tr:hover {
     background-color: #251749;
+    color: #FFFBEB;
 }
 
 
 
 @media (max-width: 766px) {
+
+    /*Aquí los cambios para movil*/
     .cta {
+        padding-top: 4em;
         height: 1em;
+
     }
+    .eslogan{
+        height: 4em;
+    }
+
+    .imagen-reproductor {
+        max-width: 4em;
+        max-height: fit-content;
+        border: #251749 solid 4px;
+    }
+    .reproductor-completo{
+        max-width: 25em;
+        min-width: 25em;
+       
+    }
+  
+
+    .fecha-tabla {
+        display: hidden;
+    }
+    th:nth-child(4),
+    td:nth-child(4) {
+        display: none;
+    }
+
+
 }
 
+@media (min-width: 767px) {
+
+    /*Aquí los cambios para ordenador*/
+    .imagen-reproductor {
+        max-width: 7em;
+        max-height: fit-content;
+        border: #251749 solid 4px;
+    }
+    .reproductor-completo{
+        max-width: 30em;
+        min-width: 30em;
+        max-height: fit-content;
+    }
+ 
+}
+/*
 .play:hover {
     animation: botonPlay 0.5s forwards;
+    color: #FFFBEB;
+
 }
 
 @keyframes botonPlay {
     100% {
         transform: scale(2);
     }
-}
+}*/
 
-.reproductor-completo{
-    background-color: #263159;
-    color: #FFFBEB;
-    border: black 2px;
-    display: block;
-}
 
 .reproductor-completo {
-    position: fixed; 
-    top: 25%; 
-    left: 75%;  
-  }
-  
+    background-color: rgba(38, 49, 89, 0.96);
+    color: #FFFBEB;
+    border: #251749 solid 4px;
+    width: 100%;
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
 
-
-
-
+.boton-cerrar-reproductor {
+    color: #FFFBEB;
+    background-color: #FFFBEB;
+}
