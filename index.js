@@ -22,27 +22,44 @@ for (const boton of botonesPlay) {
 
   });
 }
-document.getElementById('botonScroll').addEventListener('click', function() {
-  document.getElementById('tabla').scrollIntoView({behavior:'smooth'});
+document.getElementById('botonScroll').addEventListener('click', function () {
+  document.getElementById('tabla').scrollIntoView({ behavior: 'smooth' });
+});
+
+const tabla = document.getElementById('tabla');
+let selectedRow;
+
+tabla.addEventListener('click', (event) => {
+  const row = event.target.parentNode;
+  if (row.tagName === 'TR') {
+    if (row === selectedRow) {
+      row.style.backgroundColor = '';
+      row.style.color = '#251749'
+      selectedRow = null;
+    } else {
+      row.style.backgroundColor = '#251749';
+      row.style.color = '#FFFBEB';
+      if (selectedRow) {
+        selectedRow.style.backgroundColor = '';
+        selectedRow.style.color = ''
+      }
+      selectedRow = row;
+    }
+  }
 });
 
 
-const tabla = document.getElementById("tabla");
-let selectedRow;
 
-for (let i = 0; i < tabla.rows.length; i++) {
-  tabla.rows[i].addEventListener("click", function() {
-    // Si ya hay una fila seleccionada, restaura su color original
-    if (selectedRow) {
-      selectedRow.style.backgroundColor = "";
-      selectedRow.style.color="";
-    }
-    // Establece el color de fondo de la fila seleccionada
-    this.style.backgroundColor = "rgb(37, 23, 73)";
-    this.style.color="rgb(255, 251, 235)";
-    // Almacena el id de la fila seleccionada
-    selectedRow = this;
-  });
+
+
+
+// ---- Modal -----
+const modal = new bootstrap.Modal(document.getElementById('informacion-podcast'));
+
+
+document.getElementById('boton-editar').addEventListener('click', abrirModal);
+document.getElementById('boton-insertar').addEventListener('click', abrirModal);
+function abrirModal(evt) {
+  modal.show();
 }
-
-
+  

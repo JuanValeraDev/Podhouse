@@ -1,6 +1,7 @@
 /*
-TODO: Los botones de reproducir en la tabla no se ven cuando se les hace hover.
-TODO: Que al pinchar en una fila de la tabla se quede seleccionada.
+TODO: Que den mejor sensación los botones de play de la tabla
+TODO: Que al hacer hover sobre la tabla el mouse se ponga en modo dedo
+TODO: Hacer el modal para la edición
 
 */
 
@@ -63,18 +64,18 @@ footer {
 .textoPortada {
     font-size: large;
     background: rgb(255,251,235);
-    background: linear-gradient(27deg, rgba(255,251,235,1) 5%, rgba(38,49,89,1) 5%, rgba(38,49,89,1) 95%, rgba(255,251,235,1) 95%);
-    border: #251749 4px solid;
 }
 
 .eslogan {
     color: #251749;
 }
 
-.cta,
+
 .textoPortada {
     color: #FFFBEB;
     align-self: flex-end;
+    background-color: #263159;
+    border: #251749 4px solid;
 }
 .buscador{
     border: #251749 3px solid;
@@ -102,6 +103,7 @@ tbody>tr:hover p {
 tbody>tr:hover {
     background-color: #251749;
     color: #FFFBEB;
+    cursor: pointer;
 }
 
 
@@ -129,7 +131,6 @@ tbody>tr:hover {
        
     }
   
-
     .fecha-tabla {
         display: hidden;
     }
@@ -156,19 +157,13 @@ tbody>tr:hover {
     }
  
 }
-/*
-.play:hover {
-    animation: botonPlay 0.5s forwards;
+.modal-content {
+    background-image: url('img/microphone-g88bc28d92_640.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
     color: #FFFBEB;
-
+    border: #251749 4px solid;
 }
-
-@keyframes botonPlay {
-    100% {
-        transform: scale(2);
-    }
-}*/
-
 
 .reproductor-completo {
     background-color: rgba(38, 49, 89, 0.96);
@@ -180,7 +175,8 @@ tbody>tr:hover {
     align-items: center;
 }
 
-.boton-cerrar-reproductor {
+.boton-cerrar-reproductor,
+.boton-cerrar-modal {
     color: #FFFBEB;
     background-color: #FFFBEB;
 }
