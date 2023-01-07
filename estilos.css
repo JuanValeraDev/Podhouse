@@ -56,10 +56,10 @@ footer {
     text-align: center;
     color: #251749;
 }
-.palabra-podcast-eslogan{
+.palabra-mejores-eslogan{
     background-color: #251749;
     color: #FFFBEB;
-    opacity: 0.8;
+    opacity: 0.85;
 }
 
 .cta {
@@ -169,6 +169,9 @@ tbody>tr:hover {
         margin-right: 0.4em;
         border: none;
         align-self: center;
+    }
+    .frase-header{
+        font-size: medium !important;
     }
 }
 

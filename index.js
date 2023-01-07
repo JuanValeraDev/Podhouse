@@ -5,7 +5,7 @@ El modal de edición debe abrirse con los datos de esa fila.
 
 */
 
-
+/*Funciones para abrir y cerrar el reproductor */
 const botonCerrar = document.querySelector('.boton-cerrar-reproductor');
 const reproductorCompleto = document.getElementById('reproductor-completo');
 const reproductor = document.querySelector('.reproductor');
@@ -13,25 +13,22 @@ const reproductor = document.querySelector('.reproductor');
 botonCerrar.addEventListener('click', () => {
   reproductor.pause();
   reproductorCompleto.style.display = 'none';
-  console.log(`Display del reproductor: ${reproductorCompleto.style.display}`);
-
 });
-
-
 
 const botonesPlay = document.querySelectorAll('.play-button-table');
 for (const boton of botonesPlay) {
   boton.addEventListener('click', () => {
     reproductorCompleto.style.display = 'flex';
-
   });
 }
+
+/*Función para que la cta vaya a la tabla */
 document.getElementById('botonScroll').addEventListener('click', function () {
   document.getElementById('tabla').scrollIntoView({ behavior: 'smooth' });
 });
 
 
-
+/*Función para seleccionar o deseleccionar una fila */
 const tabla = document.getElementById('tabla');
 let selectedRow;
 
@@ -54,7 +51,7 @@ tabla.addEventListener('click', (event) => {
   }
 });
 
-
+/*Función para abrir modal */
 const modal = new bootstrap.Modal(document.getElementById('informacion-podcast'));
 
 document.getElementById('boton-editar').addEventListener('click', abrirModal);
@@ -66,8 +63,10 @@ function abrirModal(evt) {
     inputSubida.classList.remove("d-none");
     modal.show();
   } else {
+    if(selectedRow){
     inputSubida.classList.add("d-none");
     modal.show();
+    }
   }
 
 }
