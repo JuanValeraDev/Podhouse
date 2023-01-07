@@ -1,9 +1,7 @@
 <!doctype html>
 <html lang="es">
-<!--TODO: Que la etiqueta temporada aparezca alineada a la derecha en lugar de centrada.
-    
-    
-    -->
+<!--TODO: 
+-->
 
 <head>
     <meta charset="utf-8">
@@ -18,6 +16,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
 </head>
 
 <body class="column flex-grow-1 m-0 ">
@@ -27,35 +26,26 @@
         <div class="fs-4 d-flex align-items-center">La casa de los podcasts</div>
     </header>
 
-    <div class="container primer-panel">
-        <div class="row p-5">
-            <div class="col-md  cta d-flex align-items-end">
-                <a type="button" class="btn shadow" id="botonScroll">¡Empieza a escuchar!</a>
-            </div>
-            <div class="col-md eslogan d-flex align-items-end ">Bienvenido a PodHouse</div>
+    <div class="container primer-panel justify-content-center align-items-center">
 
+        <div class="eslogan ">El mejor lugar para los  <span class="palabra-podcast-eslogan rounded-4">mejores</span> podcasts</div>
+        <div class="cta d-flex align-items-end">
+            <a type="button" class="btn shadow" id="botonScroll">¡Empieza a escuchar!</a>
         </div>
-        <div class="row justify-content-md-center">
-
-            <div class="col-lg col-md-10 imagenPortada">
-                <img src="img/harry-cunningham-HwUR0KOTLG0-unsplash.jpg" alt="estudioDeGrabacion"
-                    class="rounded-4 h-100 w-100">
-            </div>
-            <div class="col-lg textoPortada rounded-4 py-4 mt-4 align-items-center d-flex">
-                Descubre el mejor lugar para los mejores podcasts.
-            </div>
-
-        </div>
+        <img src="img/harry-cunningham-HwUR0KOTLG0-unsplash.jpg" alt="estudioDeGrabacion"
+            class=" rounded-4 imagen-portada">
     </div>
+
     <div class="container segundo-panel mt-2 overflow-hidden p-2">
         <div class="row gx-5 d-flex align-items-center my-4 justify-content-center">
 
             <input type="search" class="col-md-5 col-10 buscador" placeholder="Busca aquí tu programa"></input>
 
             <div class="botonera d-flex col-md-6 gx-5 mt-2">
-                <button type="button" class="col-md-3  btn shadow my-2" id="boton-editar">Editar</button>
-                <button type="button" class="col-md-3  btn shadow my-2" id="boton-insertar">Insertar</button>
-                <button type="button" class="col-md-3  btn shadow my-2" id="boton-borrar">Borrar</button>
+                <button type="button" class="col-md-3  btn shadow my-2 boton-editar" id="boton-editar">Editar</button>
+                <button type="button" class="col-md-3  btn shadow my-2 boton-insertar"
+                    id="boton-insertar">Insertar</button>
+                <button type="button" class="col-md-3  btn shadow my-2 boton-borrar" id="boton-borrar">Borrar</button>
             </div>
         </div>
         <div class="row  justify-content-center d-flex flex-wrap mx-4">
@@ -72,7 +62,7 @@
                 <tbody>
                     <tr>
                         <td>
-                            <p>Aquí hay dragones</p>
+                            <p class="titulo-fila">Aquí hay dragones</p>
                         </td>
                         <td>
                             <p>6</p>
@@ -88,11 +78,17 @@
                                     play_circle
                                 </span></p>
                         </td>
-
+                        <td class=" d-none">
+                            <img src="img/AHD.jpg" alt="AquiHayDragones" class="imagen-dentro-de-tabla">
+                        </td>
+                        <td class="d-none">
+                            <audio src="audios/AHD 1x98 22_12_2022.mp3"
+                                class="audio-dentro-de-tabla reproductor-externo"></audio>
+                        </td>
                     </tr>
                     <tr>
                         <td>
-                            <p>Las noches de Ortega</p>
+                            <p class="titulo-fila">Las noches de Ortega</p>
                         </td>
                         <td>
                             <p>7</p>
@@ -108,10 +104,17 @@
                                     play_circle
                                 </span></p>
                         </td>
+                        <td class=" d-none">
+                            <img src="img/LasNochesDeOrtega.png" alt="LasNochesDeOrtega" class="imagen-dentro-de-tabla">
+                        </td>
+                        <td class="d-none">
+                            <audio src="audios/Las noches de ortega 9-03 24_09_2022.mp3"
+                                class="audio-dentro-de-tabla"></audio>
+                        </td>
                     </tr>
                     <tr>
                         <td>
-                            <p>Comedia Perpetua</p>
+                            <p class="titulo-fila">Comedia Perpetua</p>
                         </td>
                         <td>
                             <p>4</p>
@@ -127,11 +130,17 @@
                                     play_circle
                                 </span></p>
                         </td>
-
+                        <td class=" d-none">
+                            <img src="img/CoPe.jpg" alt="ComediaPerpetua" class="imagen-dentro-de-tabla">
+                        </td>
+                        <td class="d-none">
+                            <audio src="audios/Comedia Perpetua 2x02-5_09_2019.mp3"
+                                class="audio-dentro-de-tabla"></audio>
+                        </td>
                     </tr>
                     <tr>
                         <td>
-                            <p>Movidas Minúsculas</p>
+                            <p class="titulo-fila">Movidas Minúsculas</p>
                         </td>
                         <td>
                             <p>23</p>
@@ -147,7 +156,117 @@
                                     play_circle
                                 </span></p>
                         </td>
-
+                        <td class=" d-none">
+                            <img src="img/MovidasMinusculas.jpg" alt="MovidasMinusculas" class="imagen-dentro-de-tabla">
+                        </td>
+                        <td class="d-none">
+                            <audio src="audios/movidasminusculas epilogo 2-07-2022.mp3"
+                                class="audio-dentro-de-tabla"></audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="titulo-fila">Aquí hay dragones</p>
+                        </td>
+                        <td>
+                            <p>6</p>
+                        </td>
+                        <td>
+                            <p>4</p>
+                        </td>
+                        <td>
+                            <p>27/02/2022</p>
+                        </td>
+                        <td>
+                            <p><span class="material-icons play play-button-table btn btn-light">
+                                    play_circle
+                                </span></p>
+                        </td>
+                        <td class=" d-none">
+                            <img src="img/AHD.jpg" alt="AquiHayDragones" class="imagen-dentro-de-tabla">
+                        </td>
+                        <td class="d-none">
+                            <audio src="audios/AHD 1x98 22_12_2022.mp3"
+                                class="audio-dentro-de-tabla reproductor-externo"></audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="titulo-fila">Las noches de Ortega</p>
+                        </td>
+                        <td>
+                            <p>7</p>
+                        </td>
+                        <td>
+                            <p>2</p>
+                        </td>
+                        <td>
+                            <p>14/02/2021</p>
+                        </td>
+                        <td>
+                            <p><span class="material-icons play play-button-table btn btn-light">
+                                    play_circle
+                                </span></p>
+                        </td>
+                        <td class=" d-none">
+                            <img src="img/LasNochesDeOrtega.png" alt="LasNochesDeOrtega" class="imagen-dentro-de-tabla">
+                        </td>
+                        <td class="d-none">
+                            <audio src="audios/Las noches de ortega 9-03 24_09_2022.mp3"
+                                class="audio-dentro-de-tabla"></audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="titulo-fila">Comedia Perpetua</p>
+                        </td>
+                        <td>
+                            <p>4</p>
+                        </td>
+                        <td>
+                            <p>2</p>
+                        </td>
+                        <td>
+                            <p>06/04/2020</p>
+                        </td>
+                        <td>
+                            <p><span class="material-icons play play-button-table btn btn-light">
+                                    play_circle
+                                </span></p>
+                        </td>
+                        <td class=" d-none">
+                            <img src="img/CoPe.jpg" alt="ComediaPerpetua" class="imagen-dentro-de-tabla">
+                        </td>
+                        <td class="d-none">
+                            <audio src="audios/Comedia Perpetua 2x02-5_09_2019.mp3"
+                                class="audio-dentro-de-tabla"></audio>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <p class="titulo-fila">Movidas Minúsculas</p>
+                        </td>
+                        <td>
+                            <p>23</p>
+                        </td>
+                        <td>
+                            <p>1</p>
+                        </td>
+                        <td>
+                            <p>30/12/2021</p>
+                        </td>
+                        <td>
+                            <p><span class="material-icons play play-button-table btn btn-light">
+                                    play_circle
+                                </span></p>
+                        </td>
+                        <td class=" d-none">
+                            <img src="img/MovidasMinusculas.jpg" alt="MovidasMinusculas" class="imagen-dentro-de-tabla">
+                        </td>
+                        <td class="d-none">
+                            <audio src="audios/movidasminusculas epilogo 2-07-2022.mp3"
+                                class="audio-dentro-de-tabla"></audio>
+                        </td>
                     </tr>
                 </tbody>
             </table>
@@ -162,8 +281,9 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="informacion-podcast-label">Información del Podcast</h1>
-                    <button type="button" class="btn-close boton-cerrar-modal" data-bs-dismiss="modal" aria-label="Close"></button>
-                  
+                    <button type="button" class="btn-close boton-cerrar-modal" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
@@ -174,23 +294,27 @@
                     <div class="mb-3 row">
                         <div class="col">
                             <label for="frmNombre" class="form-label">Episodio</label>
-                            <input type="text" class="form-control" id="frmEpisodio" placeholder="Número de episodio"
+                            <input type="number" class="form-control" id="frmEpisodio" placeholder="Número de episodio"
                                 minlength="1">
                         </div>
                         <div class="col">
                             <div class="contenedorTemporada text-end">
                                 <label for="frmTemporada" class="form-label">Temporada</label>
-                                <input type="text" class="form-control" id="frmTemporada"
+                                <input type="number" class="form-control" id="frmTemporada"
                                     placeholder="Número de temporada" minlength="1">
                             </div>
                         </div>
-
                     </div>
                     <div class="mb-3">
-                        <label for="frmNombre" class="form-label">Fecha</label>
+                        <label for="frmFecha" class="form-label">Fecha</label>
                         <input type="date" class="form-control" id="frmFecha" placeholder="Fecha" minlength="1">
                     </div>
+                    <div class="mb-3 d-none" id="input-subida">
+                        <label for="frmSubida" class="form-label">Sube tu podcast</label>
+                        <input type="file" class="form-control" id="frmSubida">
+                    </div>
                 </div>
+
                 <div class="modal-footer">
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
                     <button type="button" class="btn btn-light ">Guardar</button>
@@ -199,17 +323,20 @@
         </div>
     </div>
 
-    <div class=" reproductor-completo mb-3 p-2 rounded-4 fixed-bottom" id="reproductor-completo">
-        <div class="col">
-            <button type="button" class="btn-close boton-cerrar-reproductor" aria-label="close"></button>
-            <img src="img/AHD.jpg" alt="AHD" class="imagen-reproductor rounded-4">
-        </div>
-        <div class="display-column justify-content-center align-items-end">
-            <p class="">Titulo del programa</p>
-            <audio src="audios/AHD 1x98 22_12_2022.mp3" class="reproductor " controls></audio>
-        </div>
 
+    <div class="col-4 reproductor-completo rounded-4 fixed-bottom" id="reproductor-completo">
+        <img src="" alt="" class="imagen-reproductor rounded-4">
+        <div class="display-column justify-content-lg-center align-items-end">
+            <div class="row titulo-y-boton">
+                <div class="col-9 titulo-reproductor p-2"></div>
+                <button type="button" class="col-1 btn-close boton-cerrar-reproductor align-self-center"
+                    aria-label="close"></button>
+            </div>
+            <audio src="" class="reproductor" controls></audio>
+        </div>
     </div>
+
+
     <footer class="py-3 mt-4 d-flex flex-wrap justify-content-around">
         <p class="text-center">Juan Valera Productions</p>
     </footer>

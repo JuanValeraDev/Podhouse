@@ -1,8 +1,5 @@
 /*
-TODO: Que den mejor sensación los botones de play de la tabla
-TODO: Que al hacer hover sobre la tabla el mouse se ponga en modo dedo
-TODO: Hacer el modal para la edición
-
+TODO: 
 */
 
 body {
@@ -25,7 +22,7 @@ header {
 
 }
 
-.btn{
+.btn {
     color: #FFFBEB;
     background-color: #251749;
     border: #251749 4px solid;
@@ -47,37 +44,34 @@ footer {
 
 .primer-panel {
     min-height: max-content;
-}
-
-.eslogan,
-.cta,
-.imagenPortada,
-.textoPortada {
-    text-align: center;
-    justify-content: center;
-    font-size: 3em;
-    font-family: 'Laila', serif;
-    height: 5em;
-    flex-shrink: 1;
-}
-
-.textoPortada {
-    font-size: large;
-    background: rgb(255,251,235);
+    display: flex;
+    flex-direction: column;
 }
 
 .eslogan {
+    margin-top: 20%;
+    font-family: 'Laila', serif;
+    margin-bottom: 10%;
+    flex-shrink: 1;
+    text-align: center;
     color: #251749;
 }
-
-
-.textoPortada {
+.palabra-podcast-eslogan{
+    background-color: #251749;
     color: #FFFBEB;
-    align-self: flex-end;
-    background-color: #263159;
-    border: #251749 4px solid;
+    opacity: 0.8;
 }
-.buscador{
+
+.cta {
+    margin-bottom: 10%;
+}
+
+.imagen-portada {
+    width: 60%;
+    border: #263159 5px solid;
+}
+
+.buscador {
     border: #251749 3px solid;
 }
 
@@ -96,7 +90,7 @@ tr {
     border: #251749;
 }
 
-tbody>tr:hover p {  
+tbody>tr:hover p {
     color: #FFFBEB;
 }
 
@@ -108,32 +102,53 @@ tbody>tr:hover {
 
 
 
+
 @media (max-width: 766px) {
 
     /*Aquí los cambios para movil*/
+
     .cta {
-        padding-top: 4em;
+        padding-top: 2em;
         height: 1em;
 
     }
-    .eslogan{
-        height: 4em;
+
+    .eslogan {
+        font-size: 2em;
     }
 
     .imagen-reproductor {
-        max-width: 4em;
+        max-width: 5em;
+        min-width: 5em;
+        max-height: 5em;
+        margin-right: 0.8em;
+        align-self: center;
+    }
+
+    .titulo-reproductor {
+        font-size: 1.5em;
+        text-align: start;
+        display: flex;
+        white-space: nowrap;
+    }
+
+    .reproductor-completo {
+        max-width: fit-content;
+        min-width: fit-content;
         max-height: fit-content;
-        border: #251749 solid 4px;
+        min-height: fit-content;
+        margin-left: 7.5%;
+        padding: 0.2em 0.4em;
     }
-    .reproductor-completo{
-        max-width: 25em;
-        min-width: 25em;
-       
+
+    .titulo-y-boton {
+        justify-content: space-around;
     }
-  
+
     .fecha-tabla {
         display: hidden;
     }
+
     th:nth-child(4),
     td:nth-child(4) {
         display: none;
@@ -141,38 +156,86 @@ tbody>tr:hover {
 
 
 }
+@media (max-width: 445px) {
+
+    /*Aquí los cambios para pantallas muy pequeñas*/
+    .reproductor-completo {
+        margin-left: 0%;
+    }
+    .imagen-reproductor {
+        max-width: 4em;
+        min-width: 4em;
+        max-height: 4em;
+        margin-right: 0.4em;
+        border: none;
+        align-self: center;
+    }
+}
 
 @media (min-width: 767px) {
 
     /*Aquí los cambios para ordenador*/
+
+
+
+    .eslogan {
+        font-size: 3em;
+    }
+
     .imagen-reproductor {
-        max-width: 7em;
-        max-height: fit-content;
-        border: #251749 solid 4px;
+        max-width: 6em;
+        min-width: 6em;
+        max-height: 6em;
+        margin-right: 1em;
+        align-self: center;
     }
-    .reproductor-completo{
-        max-width: 30em;
-        min-width: 30em;
-        max-height: fit-content;
+
+    .titulo-reproductor {
+        font-size: 1.5em;
+        text-align: start;
+        display: flex;
+        white-space: nowrap;
     }
- 
+
+    .reproductor-completo {
+        max-width: fit-content;
+        min-width: fit-content;
+        max-height: fit-content;
+        min-height: fit-content;
+        margin-left: 20%;
+        padding: 0.4em 0.8em;
+    }
+
+    .titulo-y-boton {
+        justify-content: space-around;
+    }
 }
+
+
+
 .modal-content {
     background-image: url('img/microphone-g88bc28d92_640.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     color: #FFFBEB;
     border: #251749 4px solid;
+    opacity: 0.9;
 }
+
+
 
 .reproductor-completo {
     background-color: rgba(38, 49, 89, 0.96);
     color: #FFFBEB;
     border: #251749 solid 4px;
-    width: 100%;
+    margin-bottom: 2%;
+    flex-wrap: nowrap;
     display: none;
-    justify-content: center;
-    align-items: center;
+}
+
+.imagen-reproductor {
+
+    border: #251749 solid 4px;
 }
 
 .boton-cerrar-reproductor,
