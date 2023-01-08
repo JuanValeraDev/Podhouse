@@ -72,7 +72,7 @@ function abrirModal(evt) {
 }
 
 
-
+/*Función para cambiar el podcast del reproductor */
 const rows = document.querySelectorAll('.table tbody tr');
 
 rows.forEach(row => {
