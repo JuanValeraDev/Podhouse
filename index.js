@@ -2,6 +2,7 @@
 TODO: Que al hacer hover sobre una fila de la tabla aparezca un dialogo con la imagen y una descripción del programa.
 Que solo se pueda abrir el modal de editar teniendo seleccionada una fila.
 El modal de edición debe abrirse con los datos de esa fila.
+El modal de edición y de inserción deben admitir una subida de una imagen
 
 */
 
