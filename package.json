@@ -1,7 +1,6 @@
 {
   "name": "podhouse-2",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "podhouse": "node podcast.js"
@@ -19,5 +18,6 @@
   "homepage": "https://github.com/JuanValeraDAM/PodHouse#readme",
   "dependencies": {
     "mongoose": "^6.8.3"
-  }
+  },
+  "description": ""
 }

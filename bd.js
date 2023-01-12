@@ -13,7 +13,6 @@ const PodcastSchema = mongoose.Schema(
 
 const Podcast = new mongoose.model("Podcast", PodcastSchema);
 
-
 exports.conectar = async function () {
     mongoose.set("strictQuery", false);
     await mongoose.connect("mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.0");
@@ -30,41 +29,33 @@ exports.buscar = async function (args) {
     if (palabras.length > 0) {
         let patrones = [];
         palabras.forEach((palabra) => {
-            patrones.push({ name: new RegExp(palabra, "i") });
+            patrones.push({ titulo: new RegExp(palabra, "i") });
         });
         consulta.and(patrones);
     }
     return await consulta.exec();
 };
-exports.encontrarPorId = async function (id) {
-    return await Podcast.findById(id);
-};
+
 
 exports.guardar = async function (podcastData) {
     try {
         const podcast = new Podcast(podcastData);
-        const resultado=await podcast.save();
-        console.log(resultado);
+        const resultado = await podcast.save();
         return resultado;
     } catch (err) {
         return "No se ha guardado" + err;
     }
 };
 
-exports.reemplazarDatos = async function (podcastData) {
-    this.titulo = podcastData.titulo;
-    this.episodio = podcastData.episodio;
-    this.temporada = podcastData.temporada;
-    this.fecha = podcastData.fecha;
-    this.imagen = podcastData.imagen;
+exports.encontrarPorId = async function (id) {
+    return await Podcast.findById(id);
 };
 
 exports.editar = async function (id, podcastData) {
-    const podcast = await encontrarPorId(id);
-    podcast.reemplazarDatos(podcastData);
-    podcast.save();
+    const podcast = await exports.encontrarPorId(id);
+    await Object.assign(podcast, podcastData);
+    await podcast.save();
 };
-
 
 exports.borrar = async function (id) {
     const resultado = Podcast.deleteOne({ _id: id });
