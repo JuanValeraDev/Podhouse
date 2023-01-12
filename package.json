@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "podhouse": "node podcast.js"
+    "podhouse": "node app.js"
   },
   "repository": {
     "type": "git",

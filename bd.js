@@ -55,9 +55,9 @@ exports.editar = async function (id, podcastData) {
     const podcast = await exports.encontrarPorId(id);
     await Object.assign(podcast, podcastData);
     await podcast.save();
+    return podcast;
 };
 
 exports.borrar = async function (id) {
-    const resultado = Podcast.deleteOne({ _id: id });
-    return await resultado;
+    return (await Podcast.deleteOne({ _id: id })).deletedCount == 1;
 }
