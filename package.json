@@ -1,0 +1,23 @@
+{
+  "name": "podhouse-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "podhouse": "node podcast.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JuanValeraDAM/PodHouse.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JuanValeraDAM/PodHouse/issues"
+  },
+  "homepage": "https://github.com/JuanValeraDAM/PodHouse#readme",
+  "dependencies": {
+    "mongoose": "^6.8.3"
+  }
+}

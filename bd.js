@@ -5,13 +5,14 @@ const PodcastSchema = mongoose.Schema(
         titulo: { type: String, required: true, trim: true, minLength: 3 },
         episodio: { type: Number, required: true },
         temporada: { type: Number, required: true },
-        fecha: Date,
+        fecha: String,
         imagen: { type: String, required: true },
         audio: { type: String, required: true }
     }
 );
 
-const PodCast = new mongoose.model("PodCast", PodcastSchema);
+const Podcast = new mongoose.model("Podcast", PodcastSchema);
+
 
 exports.conectar = async function () {
     mongoose.set("strictQuery", false);
@@ -21,8 +22,8 @@ exports.cerrarConexion = async function () {
     await mongoose.disconnect();
 };
 exports.buscar = async function (args) {
-    const consulta = PodCast.find();
-    const palabras = args.busqueda
+    const consulta = Podcast.find();
+    const palabras = args.titulo
         .split(" ")
         .map((s) => s.trim())
         .filter((s) => s.length > 0);
@@ -33,26 +34,29 @@ exports.buscar = async function (args) {
         });
         consulta.and(patrones);
     }
+    return await consulta.exec();
 };
 exports.encontrarPorId = async function (id) {
-    return await PodCast.findByID(id);
+    return await Podcast.findById(id);
 };
 
 exports.guardar = async function (podcastData) {
     try {
         const podcast = new Podcast(podcastData);
-        return await podcast.save();
+        const resultado=await podcast.save();
+        console.log(resultado);
+        return resultado;
     } catch (err) {
-        return undefined;
+        return "No se ha guardado" + err;
     }
 };
 
 exports.reemplazarDatos = async function (podcastData) {
-    this.titulo=podcastData.titulo;
-    this.episodio=podcastData.episodio;
-    this.temporada=podcastData.temporada;
-    this.fecha=podcastData.fecha;
-    this.imagen=podcastData.imagen;
+    this.titulo = podcastData.titulo;
+    this.episodio = podcastData.episodio;
+    this.temporada = podcastData.temporada;
+    this.fecha = podcastData.fecha;
+    this.imagen = podcastData.imagen;
 };
 
 exports.editar = async function (id, podcastData) {
@@ -63,6 +67,6 @@ exports.editar = async function (id, podcastData) {
 
 
 exports.borrar = async function (id) {
-    const resultado = PodCast.deleteOne({ _id: id });
-    return resultado;
+    const resultado = Podcast.deleteOne({ _id: id });
+    return await resultado;
 }
