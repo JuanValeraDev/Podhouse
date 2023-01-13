@@ -2,14 +2,14 @@
 
 Recursos: 
 	-Colección de podcasts: /podcasts
-	-Podcast individual: /podcasts/ID
+	-Podcast individual: /podcasts/id
 	
 Create:
-	Recibe en el cuerpo de la petición un objeto JSON que será
+	Envía en el cuerpo de la petición un objeto JSON que será
 	el que guardará en la base de datos MongoDB.
 	
 	Método: POST 
-	Recurso: la colección de podcasts
+	Recurso: /podcasts
 	Cabecera:
 		Content-type: application/json
 	Cuerpo: 
@@ -21,4 +21,44 @@ Create:
 		imagen: "String",
 		audio: "String"}
 	Respuestas posibles:
+	- 201: "Created", en la cabecera Location tendremos la ruta del recurso
+	- 400: "Bar request", petición incorrecta
+	
+Read:
+	Recibe el conjunto de podcasts solicitado en la petición HTTP
+	
+	Método: GET
+	Recurso: /podcasts
+	Parámetros: filtro de búsqueda por título
+ 			
+	Cuerpo: Vacío
+	
+	Respuestas posibles:
+	- 200: "OK", deberá tener la cabecera Content-type: application/json
+	 	en el cuerpo vendrá la colección de objetos json que hayan cumplido los criterios de búsqueda
+		Cuando no haya ningún criterio se entenderá que se quieren obtener todos
+	- 404: "Not Found", no se encuentra el recurso solicitado
+	
+Update:
+	Edita cualquier dato de un podcast excepto el archivo de audio
+	Método: PUT
+	Recurso: /podcasts/id
+	Cabecera:
+		Content-type: application/json
+	Cuerpo:
+		objeto JSON con todos los datos que se van a sobreescribir en ese id
+	Respuestas posibles:
+	- 204: "No content", se ha procesado con éxito
+	- 404: "Not Found", el elemento al que se desea acceder no existe
+	- 400: "Bad request", algún dato del cuerpo de la petición no es correcto
+Delete:
+	Borra un podcast de la colección /podcasts
+	Método:DELETE
+	Recurso: /podcasts/id
+	Cuerpo: Vacío
+	Respuestas posibles:
+	- 204: "No content", se ha procesado con éxito
+	- 404: "Not Found", el elemento al que se desea acceder no existe
+
+Prueba github
 	
