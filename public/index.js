@@ -64,9 +64,9 @@ function abrirModal(evt) {
     inputSubida.classList.remove("d-none");
     modal.show();
   } else {
-    if(selectedRow){
-    inputSubida.classList.add("d-none");
-    modal.show();
+    if (selectedRow) {
+      inputSubida.classList.add("d-none");
+      modal.show();
     }
   }
 
@@ -90,4 +90,49 @@ rows.forEach(row => {
   });
 });
 
+/*Función para el fetch*/
 
+async function enviarFetch(url, metodo = 'GET', body) {
+  try {
+    let opciones = { method: metodo };
+    if (body) {
+      opciones.body = JSON.parse(body);
+      opciones.headers = { "Content-type": "appication/json" };
+    }
+    const respuesta = await fetch(url, opciones);
+    if (respuesta.ok) {
+      const tipoMIME = respuesta.headers.get("content-type");
+      if (tipoMIME && tipoMIME.startsWith("application/json")) {
+        return await respuesta.json();
+      } else {
+        return await respuesta.text();
+      }
+    } else {
+      throw respuesta.statusText;
+    }
+
+  } catch (error) {
+    throw error;
+  }
+}
+
+/*CRUD */
+async function guardarPodcast(podcastData) {
+  return await enviarFetch("/podcasts", "POST", podcastData);
+}
+async function buscarPodcast(id) {
+  return await enviarFetch(`/podcasts/${id}`);
+}
+async function editarPodcast(id, podcastData) {
+  return await enviarFetch(`/podcasts/${id}`, "PUT", podcastData);
+}
+async function borrarPodcast(id) {
+  return await enviarFetch(`/podcasts/${id}`, "DELETE");
+}
+
+/*Cargar tabla */
+async function cargarTabla(){
+  cuerpoTabla.innerHTML = plantillaPodcasts({podcasts:podcasts})
+}
+
+cargarTabla();
