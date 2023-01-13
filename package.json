@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "podhouse": "node app.js"
+    "podhouse": "node app.js",
+    "compilacion-tabla":"pug -c -D -n plantillaPodcasts -o public plantillaPodcasts.pug"
   },
   "repository": {
     "type": "git",
@@ -17,6 +18,7 @@
   },
   "homepage": "https://github.com/JuanValeraDAM/PodHouse#readme",
   "dependencies": {
+    "express": "^4.18.2",
     "mongoose": "^6.8.3"
   },
   "description": ""

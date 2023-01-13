@@ -1,0 +1,24 @@
+
+
+Recursos: 
+	-Colección de podcasts: /podcasts
+	-Podcast individual: /podcasts/ID
+	
+Create:
+	Recibe en el cuerpo de la petición un objeto JSON que será
+	el que guardará en la base de datos MongoDB.
+	
+	Método: POST 
+	Recurso: la colección de podcasts
+	Cabecera:
+		Content-type: application/json
+	Cuerpo: 
+	Objeto Json, todos los campos obligatorios
+		{titulo: "String",
+		episodio:  1,
+		temporada: 1,
+		fecha: Date,
+		imagen: "String",
+		audio: "String"}
+	Respuestas posibles:
+	

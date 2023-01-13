@@ -5,7 +5,7 @@ const PodcastSchema = mongoose.Schema(
         titulo: { type: String, required: true, trim: true, minLength: 3 },
         episodio: { type: Number, required: true },
         temporada: { type: Number, required: true },
-        fecha: Date,
+        fecha: {type: Date, required:true},
         imagen: { type: String, required: true },
         audio: { type: String, required: true }
     }

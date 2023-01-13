@@ -1,9 +1,15 @@
-/*
-Funciona perfectamente la bd
-*/
 
 const bd = require("./bd.js");
+const express = require("express");
+const app = express();
 
+
+
+app.use(express.json());
+
+
+app.use(express.static("public"));
+app.listen(80, () => console.log("Servicio escuchando"));
 
 
 async function main() {
@@ -30,14 +36,13 @@ async function main() {
     audio: "no"
   })
   console.log(podcast3);
-*/
-
-
-  
+*//*
   const podcast4=await bd.borrar("63c063d9e31da87b7fdbbf29")
-  console.log(podcast4);
+  console.log(podcast4);*/
 
-
+  const resultados =await bd.buscar();
+  const tabla = document.getElementById("cuerpo-tabla");
+/*Aquí falta compilar los datos en la plantilla*/
 
   await bd.cerrarConexion();
 }
