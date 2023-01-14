@@ -12,38 +12,44 @@ app.use(express.static("public"));
 app.listen(80, () => console.log("Servicio escuchando"));
 
 
-async function main() {
-  await bd.conectar();
-  /*
-  const podcast1 = await bd.guardar({
-      titulo: "Las noches de Ortega", episodio: 4, temporada: 5,
-      fecha: new Date(2020,02,03), imagen: "img/AHD.jpg", audio: "audios/AHD 1x98 22_12_2022.mp3"
-  })
-  console.log(podcast1);*/
+bd.connect().then(() => {
+  app.listen(80);
+});
 
-  /*  const editado= await bd.editar("63bff5cdd2122dd4b54775a1",  {titulo: "jeje", episodio: 4, temporada: 5,
-    fecha: "21/05/2021", imagen: "x", audio: "x"})
-    console.log(editado)*/
-  /*const busqueda=await bd.buscar({titulo:"dragones"});
-    console.log(busqueda)
-*/
- /* const podcast3 = await bd.editar("63c063d9e31da87b7fdbbf29", {
-    titulo: "ahoraEditado",
-    episodio: 2,
-    temporada: 3,
-    fecha: new Date(2020, 03, 03),
-    imagen: "si",
-    audio: "no"
-  })
-  console.log(podcast3);
-*//*
-  const podcast4=await bd.borrar("63c063d9e31da87b7fdbbf29")
-  console.log(podcast4);*/
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send(err);
+});
 
-  const resultados =await bd.buscar();
-  const tabla = document.getElementById("cuerpo-tabla");
-/*Aquí falta compilar los datos en la plantilla*/
+app.get("/podcasts", async (req, res) => {
+  res.json(await bd.buscar({ titulo: "" }));
+});
 
-  await bd.cerrarConexion();
-}
-main()
+app.get("/podcasts/:id", async (req, res) => {
+  const podcast = await bd.encontrarPorId(req.params.id);
+  if (podcast) res.json(podcast);
+  else res.status(404).send(`No existe un podcast con ID=${req.params.id}.`);
+});
+
+app.post("/podcasts", async (req, res) => {
+  const podcast = await bd.guardar(req.body);
+  if (podcast) res.location(`/podcasts/${podcast._id}`).status(201).send("Podcast creado");
+  else res.status(400).send("Error, has introducido valores incorrectos.");
+});
+
+app.put("/podcasts/:id", async (req, res) => {
+  const podcastEditado = await bd.editar(req.params.id, req.body)
+  if (podcastEditado) {
+    res.sendStatus(204);
+  } else {
+    res.sendStatus(404);
+  }
+});
+
+app.delete("/podcasts/:id", async (req, res) => {
+  if (await bd.borrar(req.params.id)) {
+    res.sendStatus(204)
+  } else {
+    res.sendStatus(404);
+  }
+});

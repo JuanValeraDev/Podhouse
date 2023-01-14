@@ -29,7 +29,7 @@ Read:
 	
 	Método: GET
 	Recurso: /podcasts
-	Parámetros: filtro de búsqueda por título
+	Parámetros: puede haber filtro de búsqueda por título
  			
 	Cuerpo: Vacío
 	

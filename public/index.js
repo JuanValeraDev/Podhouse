@@ -92,7 +92,7 @@ rows.forEach(row => {
 
 /*Función para el fetch*/
 
-async function enviarFetch(url, metodo = 'GET', body) {
+async function enviarFetch(url, metodo, body) {
   try {
     let opciones = { method: metodo };
     if (body) {
@@ -120,8 +120,11 @@ async function enviarFetch(url, metodo = 'GET', body) {
 async function guardarPodcast(podcastData) {
   return await enviarFetch("/podcasts", "POST", podcastData);
 }
+async function obtenerTodosLosPodcasts(){
+  return await enviarFetch("/podcasts", "GET")
+}
 async function buscarPodcast(id) {
-  return await enviarFetch(`/podcasts/${id}`);
+  return await enviarFetch(`/podcasts/${id}`, "GET");
 }
 async function editarPodcast(id, podcastData) {
   return await enviarFetch(`/podcasts/${id}`, "PUT", podcastData);

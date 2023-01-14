@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "podhouse": "node app.js",
-    "compilacion-tabla":"pug -c -D -n plantillaPodcasts -o public plantillaPodcasts.pug"
+    "compilacion-tabla": "pug -c -D -n plantillaPodcasts -o public plantillaPodcasts.pug"
   },
   "repository": {
     "type": "git",
