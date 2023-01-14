@@ -6,6 +6,9 @@ El modal de edición y de inserción deben admitir una subida de una imagen
 
 */
 
+
+
+
 /*Funciones para abrir y cerrar el reproductor */
 const botonCerrar = document.querySelector('.boton-cerrar-reproductor');
 const reproductorCompleto = document.getElementById('reproductor-completo');
@@ -53,20 +56,20 @@ tabla.addEventListener('click', (event) => {
 });
 
 /*Función para abrir modal */
-const modal = new bootstrap.Modal(document.getElementById('informacion-podcast'));
+const modalBootstrap = new bootstrap.Modal(document.getElementById('modal'));
 
 document.getElementById('boton-editar').addEventListener('click', abrirModal);
 document.getElementById('boton-insertar').addEventListener('click', abrirModal);
-const inputSubida = document.getElementById('input-subida');
+const modal = document.getElementById('modal');
 
 function abrirModal(evt) {
   if (evt.target.classList.contains('boton-insertar')) {
-    inputSubida.classList.remove("d-none");
-    modal.show();
+    modal.classList.remove("d-none");
+    modalBootstrap.show();
   } else {
     if (selectedRow) {
-      inputSubida.classList.add("d-none");
-      modal.show();
+      modal.classList.add("d-none");
+      modalBootstrap.show();
     }
   }
 
@@ -96,7 +99,7 @@ async function enviarFetch(url, metodo, body) {
   try {
     let opciones = { method: metodo };
     if (body) {
-      opciones.body = JSON.parse(body);
+      opciones.body = JSON.stringify(body);
       opciones.headers = { "Content-type": "appication/json" };
     }
     const respuesta = await fetch(url, opciones);
@@ -134,8 +137,38 @@ async function borrarPodcast(id) {
 }
 
 /*Cargar tabla */
-async function cargarTabla(){
-  cuerpoTabla.innerHTML = plantillaPodcasts({podcasts:podcasts})
-}
 
+async function cargarTabla(){
+  const cuerpoTabla=document.getElementById("cuerpo-tabla");
+  cuerpoTabla.innerHTML = plantillaPodcasts({
+    podcasts: await obtenerTodosLosPodcasts()})
+}
 cargarTabla();
+
+/* Guardar un podcast*/
+const podcastDataPrueba={titulo:"CP",
+episodio:2,
+temporada:3,
+fecha:new Date(2020,02,02),
+imagen:"./img/CoPe.jpg",
+audio: "./audios/Las noches de ortega 9-03 24_09_2022.mp3"};
+
+const botonGuardar= document.getElementById("boton-guardar-modal");
+botonGuardar.addEventListener("click", async () => {
+  modalBootstrap.hide();
+  const id = botonGuardar.dataset.id;
+  if (id) {
+    await editarPodcast(id, podcastDataPrueba);
+  } else {
+    const podcastData = {
+      titulo: frmTitulo.value,
+      episodio: frmEpisodio.value,
+      temporada: frmTemporada.value,
+      fecha: frmFecha.value,
+      imagen: frmImagen.value,
+      audio: frmAudio.value
+    };
+    await guardarPodcast(podcastData);
+  }
+  await cargarTabla();
+});

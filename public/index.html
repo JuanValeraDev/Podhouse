@@ -30,10 +30,11 @@
 
         <div class="eslogan ">El mejor lugar para los <span class="palabra-mejores-eslogan rounded-4">mejores</span>
             podcasts</div>
+            <img src="../img/Ortega.png">
         <div class="cta d-flex align-items-end">
             <a type="button" class="btn shadow" id="botonScroll">¡Empieza a escuchar!</a>
         </div>
-        <img src="../img/harry-cunningham-HwUR0KOTLG0-unsplash.jpg" alt="estudioDeGrabacion"
+        <img src="../img/imagenPortada.jpg" alt="estudioDeGrabacion"
             class=" rounded-4 imagen-portada">
     </div>
 
@@ -63,30 +64,28 @@
                 <tbody id="cuerpo-tabla">
                 </tbody>
             </table>
-
-
         </div>
     </div>
 
-    <div class="text-black modal fade" id="informacion-podcast" tabindex="-1"
-        aria-labelledby="informacion-podcast-label" aria-hidden="true">
+    <div class="text-black modal fade d-none" id="modal" tabindex="-1"
+        aria-labelledby="modal-label" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="informacion-podcast-label">Información del Podcast</h1>
+                    <h1 class="modal-title fs-5" id="modal-label">Información del Podcast</h1>
                     <button type="button" class="btn-close boton-cerrar-modal" data-bs-dismiss="modal"
                         aria-label="Close"></button>
 
                 </div>
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="frmNombre" class="form-label">Programa</label>
-                        <input type="text" class="form-control" id="frmPrograma" placeholder="Nombre del programa"
+                        <label for="frmTitulo" class="form-label">Titulo</label>
+                        <input type="text" class="form-control" id="frmTitulo" placeholder="Nombre del programa"
                             minlength="1">
                     </div>
                     <div class="mb-3 row">
                         <div class="col">
-                            <label for="frmNombre" class="form-label">Episodio</label>
+                            <label for="frmEpisodio" class="form-label">Episodio</label>
                             <input type="number" class="form-control" id="frmEpisodio" placeholder="Número de episodio"
                                 minlength="1">
                         </div>
@@ -102,15 +101,25 @@
                         <label for="frmFecha" class="form-label">Fecha</label>
                         <input type="date" class="form-control" id="frmFecha" placeholder="Fecha" minlength="1">
                     </div>
-                    <div class="mb-3 d-none" id="input-subida">
+                    <div class="mb-3">
+                        <label for="frmimagen" class="form-label">Imagen</label>
+                        <input type="text" class="form-control" id="frmImagen" placeholder="Ruta de la imagen"
+                            minlength="1">
+                    </div> 
+                    <div class="mb-3">
+                        <label for="frmAudio" class="form-label">Audio</label>
+                        <input type="text" class="form-control" id="frmAudio" placeholder="Ruta del audio"
+                            minlength="1">
+                    </div>
+                    <!-- <div class="mb-3 " id="input-subida">
                         <label for="frmSubida" class="form-label">Sube tu podcast</label>
                         <input type="file" class="form-control" id="frmSubida">
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-light ">Guardar</button>
+                    <button type="button" class="btn btn-light"  data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-light " id="boton-guardar-modal">Guardar</button>
                 </div>
             </div>
         </div>
@@ -141,7 +150,9 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js"
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
-    <script src="index.js"></script>
+        <script src="plantillaPodcasts.js"></script>
+        <script src="index.js"></script>
+    
 
 </body>
 

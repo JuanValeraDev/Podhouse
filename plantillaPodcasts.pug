@@ -1,15 +1,16 @@
-each podcat in podcasts 
+each podcast in podcasts 
     tr 
         td 
             p(class='titulo-fila')=podcast.titulo
         td 
             p=podcast.episodio 
         td 
-            p=podcast.fecha 
+            p=podcast.temporada 
         td 
-            p
-                span(class='material-icons play play-button-table btn btn-light')=play_circle
-        td(class='d-none') 
+            p=podcast.fecha
+        td 
+            p(class='material-icons play play-button-table btn btn-light')
+        td
             img(src=podcast.imagen, alt='', class='imagen-dentro-de-tabla')
-        td(class='d-none')
-            audio(src=podcast.audio, class='audio-dentro-de-tabla reproductor-externo')
+        td
+            audio(src=podcast.audio, class='audio-dentro-de-tabla')

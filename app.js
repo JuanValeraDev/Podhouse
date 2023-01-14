@@ -12,9 +12,22 @@ app.use(express.static("public"));
 app.listen(80, () => console.log("Servicio escuchando"));
 
 
-bd.connect().then(() => {
-  app.listen(80);
-});
+bd.conectar();
+
+
+async function borrarEstaFuncion() {
+  const resultado = await bd.guardar({
+    titulo: "AHD",
+    episodio: 2,
+    temporada: 3,
+    fecha: new Date(2020, 02, 02),
+    imagen: "./AHD.jpg",
+    audio: "./AHD.mp3"
+  });
+  console.log(resultado);
+}
+borrarEstaFuncion();
+
 
 app.use((err, req, res, next) => {
   console.error(err.stack);

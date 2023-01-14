@@ -1,10 +1,10 @@
 /*
-TODO: 
+TODO: Que no se pueda hacer click en el header de la tabla
 */
 
 body {
 
-    background-image: url("img/background-white-colorBueno.png");
+    background-image: url("./img/background.png");
     background-size: contain;
     background-color: #FFFBEB;
     position: relative;
@@ -217,7 +217,7 @@ tbody>tr:hover {
 
 
 .modal-content {
-    background-image: url('../img/microphone-g88bc28d92_640.jpg');
+    background-image: url('./img/imagenModal.jpg');
     background-size: cover;
     background-repeat: no-repeat;
     color: #FFFBEB;
