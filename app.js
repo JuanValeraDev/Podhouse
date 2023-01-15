@@ -14,37 +14,53 @@ app.listen(80, () => console.log("Servicio escuchando"));
 
 bd.conectar();
 
+/*Pasar fecha a String */
+let date = new Date(2020, 01, 02);
+let year = date.getFullYear();
+let month = date.getMonth() + 1;
+let day = date.getDate();
+let fechaString = `${year}-${month}-${day}`;
+//Función para meter cuatro podcast a piñón.
 
-async function borrarEstaFuncion() {
-  const resultado = await bd.guardar({
-    titulo: "Las noches de Ortega",
-    episodio: 2,
-    temporada: 3,
-    fecha: new Date(2020, 02, 02),
-    imagen: "/img/Ortega.png",
-    audio: "/audios/Ortega.mp3"
-  });
-  console.log(resultado);
-  const resultado2 = await bd.guardar({
-    titulo: "Movidas Minusculas",
-    episodio: 2,
-    temporada: 3,
-    fecha: new Date(2020, 02, 02),
-    imagen: "/img/MM.png",
-    audio: "/audios/MM.mp3"
-  });
-  console.log(resultado2);
-  const resultado3 = await bd.guardar({
-    titulo: "Comedia Perpetua",
-    episodio: 2,
-    temporada: 3,
-    fecha: new Date(2020, 02, 02),
-    imagen: "/img/CP.jpg",
-    audio: "/audios/CP.mp3"
-  });
-  console.log(resultado3);
-}
-borrarEstaFuncion();
+// async function borrarEstaFuncion() {
+//   const resultado = await bd.guardar({
+//     titulo: "Las noches de Ortega",
+//     episodio: 2,
+//     temporada: 3,
+//     fecha: fechaString,
+//     imagen: "/img/Ortega.png",
+//     audio: "/audios/Ortega.mp3"
+//   });
+//   console.log(resultado);
+//   const resultado2 = await bd.guardar({
+//     titulo: "Movidas Minusculas",
+//     episodio: 2,
+//     temporada: 3,
+//     fecha: fechaString,
+//     imagen: "/img/MM.jpg",
+//     audio: "/audios/MM.mp3"
+//   });
+//   console.log(resultado2);
+//   const resultado3 = await bd.guardar({
+//     titulo: "Comedia Perpetua",
+//     episodio: 2,
+//     temporada: 3,
+//     fecha: fechaString,
+//     imagen: "/img/CP.jpg",
+//     audio: "/audios/CP.mp3"
+//   });
+//   console.log(resultado3);
+//   const resultado4 = await bd.guardar({
+//     titulo: "Aquí hay dragones",
+//     episodio: 2,
+//     temporada: 3,
+//     fecha: fechaString,
+//     imagen: "/img/AHD.jpg",
+//     audio: "/audios/AHD.mp3"
+//   });
+//   console.log(resultado4);
+// }
+// borrarEstaFuncion();
 
 
 

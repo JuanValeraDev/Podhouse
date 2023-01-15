@@ -1,7 +1,8 @@
 /*
 TODO: Que al hacer hover sobre una fila de la tabla aparezca un dialogo con la imagen y una descripción del programa.
 El modal de edición debe abrirse con los datos de esa fila.
-Los modales están dando por culo
+El guardar no funciona
+Hay que ver cómo cambiar el formato de la fecha para que sea más amigable
 */
 
 
@@ -66,15 +67,15 @@ const modalBootstrap = new bootstrap.Modal(document.getElementById('modal'));
 
 document.getElementById('boton-editar').addEventListener('click', abrirModal);
 document.getElementById('boton-insertar').addEventListener('click', abrirModal);
-// const audioModal = document.getElementById('audio-modal');
+const audioModal = document.getElementById('audio-modal');
 
 function abrirModal(evt) {
   if (evt.target.classList.contains('boton-insertar')) {
-    //  audioModal.classList.remove("d-none");
+    audioModal.classList.remove("d-none");
     modalBootstrap.show();
   } else {
     if (selectedRow) {
-      // audioModal.classList.add("d-none");
+      audioModal.classList.add("d-none");
       modalBootstrap.show();
     }
   }
@@ -135,15 +136,9 @@ async function cargarTabla() {
 }
 cargarTabla();
 
-/* Guardar un podcast*/
-const podcastDataPrueba = {
-  titulo: "CP",
-  episodio: 2,
-  temporada: 3,
-  fecha: new Date(2020, 02, 02),
-  imagen: "./img/CP.jpg",
-  audio: "./audios/CP.mp3"
-};
+
+
+
 
 const botonGuardar = document.getElementById("boton-guardar-modal");
 botonGuardar.addEventListener("click", async () => {
