@@ -17,16 +17,35 @@ bd.conectar();
 
 async function borrarEstaFuncion() {
   const resultado = await bd.guardar({
-    titulo: "AHD",
+    titulo: "Las noches de Ortega",
     episodio: 2,
     temporada: 3,
     fecha: new Date(2020, 02, 02),
-    imagen: "./AHD.jpg",
-    audio: "./AHD.mp3"
+    imagen: "/img/Ortega.png",
+    audio: "/audios/Ortega.mp3"
   });
   console.log(resultado);
+  const resultado2 = await bd.guardar({
+    titulo: "Movidas Minusculas",
+    episodio: 2,
+    temporada: 3,
+    fecha: new Date(2020, 02, 02),
+    imagen: "/img/MM.png",
+    audio: "/audios/MM.mp3"
+  });
+  console.log(resultado2);
+  const resultado3 = await bd.guardar({
+    titulo: "Comedia Perpetua",
+    episodio: 2,
+    temporada: 3,
+    fecha: new Date(2020, 02, 02),
+    imagen: "/img/CP.jpg",
+    audio: "/audios/CP.mp3"
+  });
+  console.log(resultado3);
 }
 borrarEstaFuncion();
+
 
 
 app.use((err, req, res, next) => {
