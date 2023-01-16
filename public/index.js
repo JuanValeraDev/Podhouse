@@ -1,7 +1,5 @@
 /*
-TODO: Que al hacer hover sobre una fila de la tabla aparezca un dialogo con la imagen y una descripción del programa.
-El modal de edición debe abrirse con los datos de esa fila.
-El guardar no funciona
+TODO: Al escribir en el modal se queda guardado de una vez para otra.
 Hay que ver cómo cambiar el formato de la fecha para que sea más amigable
 */
 
@@ -64,6 +62,11 @@ document.getElementById('botonScroll').addEventListener('click', function () {
 
 /*Función para abrir modal */
 const modalBootstrap = new bootstrap.Modal(document.getElementById('modal'));
+const frmTitulo = document.getElementById('frmTitulo');
+const frmEpisodio = document.getElementById('frmEpisodio');
+const frmTemporada = document.getElementById('frmTemporada');
+const frmFecha = document.getElementById('frmFecha');
+const frmImagen = document.getElementById('frmImagen');
 
 document.getElementById('boton-editar').addEventListener('click', abrirModal);
 document.getElementById('boton-insertar').addEventListener('click', abrirModal);
@@ -72,10 +75,25 @@ const audioModal = document.getElementById('audio-modal');
 function abrirModal(evt) {
   if (evt.target.classList.contains('boton-insertar')) {
     audioModal.classList.remove("d-none");
+    frmTitulo.placeholder = "Nombre del programa";
+    frmEpisodio.placeholder = "Número de episodio";
+    frmTemporada.placeholder = "Número de temporada";
+    frmFecha.placeholder = "Fecha";
+    frmImagen.placeholder = "Ruta de la imagen";
     modalBootstrap.show();
   } else {
     if (selectedRow) {
       audioModal.classList.add("d-none");
+      const tituloPodcast = selectedRow.querySelector('.titulo-fila').textContent;
+      const episodioPodcast = selectedRow.querySelector('.episodio-fila').textContent;
+      const temporadaPodcast = selectedRow.querySelector('.temporada-fila').textContent;
+      const fechaPodcast = selectedRow.querySelector('.fecha-fila').textContent;
+      const imagenPodcast = selectedRow.querySelector('.imagen-dentro-de-tabla').src;
+      frmTitulo.placeholder = tituloPodcast;
+      frmEpisodio.placeholder = episodioPodcast;
+      frmTemporada.placeholder = temporadaPodcast;
+      frmFecha.placeholder = fechaPodcast;
+      frmImagen.placeholder = imagenPodcast;
       modalBootstrap.show();
     }
   }
@@ -90,7 +108,7 @@ async function enviarFetch(url, metodo, body) {
     let opciones = { method: metodo };
     if (body) {
       opciones.body = JSON.stringify(body);
-      opciones.headers = { "Content-type": "appication/json" };
+      opciones.headers = { "Content-type": "application/json" };
     }
     const respuesta = await fetch(url, opciones);
     if (respuesta.ok) {
@@ -136,26 +154,38 @@ async function cargarTabla() {
 }
 cargarTabla();
 
+const podcastDataPrueba = {
+  titulo: "Aquí hay dragones",
+  episodio: 2,
+  temporada: 3,
+  fecha: new Date(2020, 02, 02),
+  imagen: "/img/AHD.jpg",
+  audio: "/audios/AHD.mp3"
+};
 
 
-
-
+/*Función para guardar y cancelar*/
 const botonGuardar = document.getElementById("boton-guardar-modal");
+const botonCerrarModal = document.getElementById('boton-cerrar-modal');
 botonGuardar.addEventListener("click", async () => {
   modalBootstrap.hide();
-  // const id = botonGuardar.dataset.id;
-  // if (id) {
-  //   await editarPodcast(id, podcastDataPrueba);
-  // } else {
-  const podcastData = {
-    titulo: frmTitulo.value,
-    episodio: frmEpisodio.value,
-    temporada: frmTemporada.value,
-    fecha: frmFecha.value,
-    imagen: frmImagen.value,
-    audio: frmAudio.value
-  };
-  await guardarPodcast(podcastData);
+  const id = botonGuardar.dataset.id;
+  /*Aquí hay un problema grande y es que no sé cómo sacar el id del objeto 
+  podcast que se encuentra en mongodb si aquí a lo que estoy accediendo es a una fila.
+   */
+  if (id) {
 
+    await editarPodcast(id, podcastDataPrueba);
+  } else {
+    const podcastData = {
+      titulo: frmTitulo.value,
+      episodio: frmEpisodio.value,
+      temporada: frmTemporada.value,
+      fecha: frmFecha.value,
+      imagen: frmImagen.value,
+      audio: frmAudio.value
+    };
+    await guardarPodcast(podcastData);
+  }
   await cargarTabla()
 });
