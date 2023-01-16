@@ -1,8 +1,8 @@
 /*
-TODO: Al escribir en el modal se queda guardado de una vez para otra.
+TODO: Si hay un error en el fetch debería informar al usuario de lo que ha pasado
 Hay que ver cómo cambiar el formato de la fecha para que sea más amigable
+Falta implementar el buscador
 */
-
 
 
 
@@ -34,7 +34,7 @@ tabla.addEventListener('click', (event) => {
 });
 
 /*Función para seleccionar o deseleccionar una fila */
-let selectedRow;
+let selectedRow = null;
 
 tabla.addEventListener('click', (event) => {
   const row = event.target.parentNode;
@@ -67,6 +67,7 @@ const frmEpisodio = document.getElementById('frmEpisodio');
 const frmTemporada = document.getElementById('frmTemporada');
 const frmFecha = document.getElementById('frmFecha');
 const frmImagen = document.getElementById('frmImagen');
+let esEdicion=false;
 
 document.getElementById('boton-editar').addEventListener('click', abrirModal);
 document.getElementById('boton-insertar').addEventListener('click', abrirModal);
@@ -82,6 +83,7 @@ function abrirModal(evt) {
     frmImagen.placeholder = "Ruta de la imagen";
     modalBootstrap.show();
   } else {
+    esEdicion=true;
     if (selectedRow) {
       audioModal.classList.add("d-none");
       const tituloPodcast = selectedRow.querySelector('.titulo-fila').textContent;
@@ -121,9 +123,8 @@ async function enviarFetch(url, metodo, body) {
     } else {
       throw respuesta.statusText;
     }
-
   } catch (error) {
-    throw error;
+    console.log("Ha habido un error en el fetch:" + error)
   }
 }
 
@@ -160,22 +161,29 @@ const podcastDataPrueba = {
   temporada: 3,
   fecha: new Date(2020, 02, 02),
   imagen: "/img/AHD.jpg",
-  
+
 };
 
 
-/*Función para guardar y cancelar*/
+/*Función para crear y editar*/
 const botonGuardar = document.getElementById("boton-guardar-modal");
 const botonCerrarModal = document.getElementById('boton-cerrar-modal');
 
 botonGuardar.addEventListener("click", async () => {
   modalBootstrap.hide();
-  const id= selectedRow.closest('tr').data-id;
-  /*Vale , a ver, lo que hay que hacer es meterle el id a la fila con el data-id a la hora de volcar 
-  las filas de la tabla.
-  */
-  if (selectedRow) {
-    await editarPodcast(id, podcastDataPrueba);
+
+  if (selectedRow && esEdicion) {
+    const id = selectedRow.dataset.id;
+    const podcastDataEdicion = {
+      titulo: frmTitulo.value,
+      episodio: frmEpisodio.value,
+      temporada: frmTemporada.value,
+      fecha: frmFecha.value,
+      imagen: frmImagen.value,
+      audio: frmAudio.value
+    };
+    await editarPodcast(id, podcastDataEdicion);
+    esEdicion=false;
   } else {
     const podcastData = {
       titulo: frmTitulo.value,
@@ -185,8 +193,20 @@ botonGuardar.addEventListener("click", async () => {
       imagen: frmImagen.value,
       audio: frmAudio.value
     };
-    const respuesta=await guardarPodcast(podcastData);
-    
+    const respuesta = await guardarPodcast(podcastData);
+    console.log(respuesta);
+
   }
-  await cargarTabla()
+  await cargarTabla();
+});
+
+/*Fución para borrar un podcast */
+const botonBorrar = document.getElementById('boton-borrar');
+
+botonBorrar.addEventListener("click", async() => {
+  if (selectedRow) {
+    const id = selectedRow.dataset.id;
+    await borrarPodcast(id);
+  }
+ await cargarTabla();
 });
