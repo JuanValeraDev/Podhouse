@@ -167,13 +167,12 @@ const podcastDataPrueba = {
 /*Función para guardar y cancelar*/
 const botonGuardar = document.getElementById("boton-guardar-modal");
 const botonCerrarModal = document.getElementById('boton-cerrar-modal');
+
 botonGuardar.addEventListener("click", async () => {
   modalBootstrap.hide();
-  
-  /*Aquí hay un problema grande y es que no sé cómo sacar el id del objeto 
-  podcast que se encuentra en mongodb si aquí a lo que estoy accediendo es a una fila.
-  Otro problema es que abajo estás comprobando si hay alguna línea
-  seleccionada, pero ya no sabes si el modal se abrió para edición o para insertar. 
+  const id= selectedRow.closest('tr').data-id;
+  /*Vale , a ver, lo que hay que hacer es meterle el id a la fila con el data-id a la hora de volcar 
+  las filas de la tabla.
   */
   if (selectedRow) {
     await editarPodcast(id, podcastDataPrueba);
@@ -187,7 +186,7 @@ botonGuardar.addEventListener("click", async () => {
       audio: frmAudio.value
     };
     const respuesta=await guardarPodcast(podcastData);
-    console.log(respuesta);
+    
   }
   await cargarTabla()
 });
