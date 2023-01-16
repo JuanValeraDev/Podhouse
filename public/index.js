@@ -155,12 +155,12 @@ async function cargarTabla() {
 cargarTabla();
 
 const podcastDataPrueba = {
-  titulo: "Aquí hay dragones",
+  titulo: "Podcast de prueba",
   episodio: 2,
   temporada: 3,
   fecha: new Date(2020, 02, 02),
   imagen: "/img/AHD.jpg",
-  audio: "/audios/AHD.mp3"
+  
 };
 
 
@@ -169,12 +169,13 @@ const botonGuardar = document.getElementById("boton-guardar-modal");
 const botonCerrarModal = document.getElementById('boton-cerrar-modal');
 botonGuardar.addEventListener("click", async () => {
   modalBootstrap.hide();
-  const id = botonGuardar.dataset.id;
+  
   /*Aquí hay un problema grande y es que no sé cómo sacar el id del objeto 
   podcast que se encuentra en mongodb si aquí a lo que estoy accediendo es a una fila.
-   */
-  if (id) {
-
+  Otro problema es que abajo estás comprobando si hay alguna línea
+  seleccionada, pero ya no sabes si el modal se abrió para edición o para insertar. 
+  */
+  if (selectedRow) {
     await editarPodcast(id, podcastDataPrueba);
   } else {
     const podcastData = {
@@ -185,7 +186,8 @@ botonGuardar.addEventListener("click", async () => {
       imagen: frmImagen.value,
       audio: frmAudio.value
     };
-    await guardarPodcast(podcastData);
+    const respuesta=await guardarPodcast(podcastData);
+    console.log(respuesta);
   }
   await cargarTabla()
 });
