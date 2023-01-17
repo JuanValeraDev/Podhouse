@@ -2,6 +2,10 @@
 TODO: Si hay un error en el fetch debería informar al usuario de lo que ha pasado
 Hay que ver cómo cambiar el formato de la fecha para que sea más amigable
 Falta implementar el buscador
+Cuando faltan datos obligatorios se cae el servidor
+Está dando un error porque en la edición intenta sobrescribir un podcst y en el podcastData no está la ruta del audio
+En el modal de editar, los datos que se ponen deberían estar como datos en los campos, no como placeholder
+
 */
 
 
