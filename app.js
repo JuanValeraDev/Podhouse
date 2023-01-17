@@ -1,4 +1,7 @@
 
+/*
+OJO!! TIENES QUE PONER LOS RES.STATUS EN FUNCIÓN DE LO QUE PUSISTE EN TU API!!
+*/
 const bd = require("./bd.js");
 const express = require("express");
 const app = express();
