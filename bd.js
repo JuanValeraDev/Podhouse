@@ -43,7 +43,7 @@ exports.guardar = async function (podcastData) {
         const resultado = await podcast.save();
         return resultado;
     } catch (err) {
-        return "No se ha guardado" + err;
+        return undefined;
     }
 };
 
@@ -52,10 +52,14 @@ exports.encontrarPorId = async function (id) {
 };
 
 exports.editar = async function (id, podcastData) {
+    try{
     const podcast = await exports.encontrarPorId(id);
     await Object.assign(podcast, podcastData);
     await podcast.save();
     return podcast;
+    }catch(err){
+        return undefined;
+    }
 };
 
 exports.borrar = async function (id) {

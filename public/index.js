@@ -1,11 +1,9 @@
 /*
 TODO: Si hay un error en el fetch debería informar al usuario de lo que ha pasado
-Hay que ver cómo cambiar el formato de la fecha para que sea más amigable
-Falta implementar el buscador
-Cuando faltan datos obligatorios se cae el servidor
-Está dando un error porque en la edición intenta sobrescribir un podcst y en el podcastData no está la ruta del audio
-En el modal de editar, los datos que se ponen deberían estar como datos en los campos, no como placeholder
+Hay que ver cómo cambiar el formato de la fecha para que sea más amigable: 
+          Tienes que usar la funcion toLocaleString() para pasar el tipo Date a String.
 
+Falta implementar el buscador
 */
 
 
@@ -71,7 +69,7 @@ const frmEpisodio = document.getElementById('frmEpisodio');
 const frmTemporada = document.getElementById('frmTemporada');
 const frmFecha = document.getElementById('frmFecha');
 const frmImagen = document.getElementById('frmImagen');
-let esEdicion=false;
+let esEdicion = false;
 
 document.getElementById('boton-editar').addEventListener('click', abrirModal);
 document.getElementById('boton-insertar').addEventListener('click', abrirModal);
@@ -87,7 +85,7 @@ function abrirModal(evt) {
     frmImagen.placeholder = "Ruta de la imagen";
     modalBootstrap.show();
   } else {
-    esEdicion=true;
+    esEdicion = true;
     if (selectedRow) {
       audioModal.classList.add("d-none");
       const tituloPodcast = selectedRow.querySelector('.titulo-fila').textContent;
@@ -95,11 +93,11 @@ function abrirModal(evt) {
       const temporadaPodcast = selectedRow.querySelector('.temporada-fila').textContent;
       const fechaPodcast = selectedRow.querySelector('.fecha-fila').textContent;
       const imagenPodcast = selectedRow.querySelector('.imagen-dentro-de-tabla').src;
-      frmTitulo.placeholder = tituloPodcast;
-      frmEpisodio.placeholder = episodioPodcast;
-      frmTemporada.placeholder = temporadaPodcast;
-      frmFecha.placeholder = fechaPodcast;
-      frmImagen.placeholder = imagenPodcast;
+      frmTitulo.value = tituloPodcast;
+      frmEpisodio.value = episodioPodcast;
+      frmTemporada.value = temporadaPodcast;
+      frmFecha.value = fechaPodcast;
+      frmImagen.vaue = imagenPodcast;
       modalBootstrap.show();
     }
   }
@@ -150,7 +148,8 @@ async function borrarPodcast(id) {
 }
 
 /*Cargar tabla */
-
+/*Aquí yo creo que es donde tienes que obtener todos los podcasts y cambiarles el formato de la fecha
+y ya */
 async function cargarTabla() {
   const cuerpoTabla = document.getElementById("cuerpo-tabla");
   cuerpoTabla.innerHTML = plantillaPodcasts({
@@ -184,10 +183,12 @@ botonGuardar.addEventListener("click", async () => {
       temporada: frmTemporada.value,
       fecha: frmFecha.value,
       imagen: frmImagen.value,
-      audio: frmAudio.value
+      audio: selectedRow.querySelector('.audio-dentro-de-tabla').src
     };
-    await editarPodcast(id, podcastDataEdicion);
-    esEdicion=false;
+    
+      await editarPodcast(id, podcastDataEdicion);
+      esEdicion = false;
+    
   } else {
     const podcastData = {
       titulo: frmTitulo.value,
@@ -197,20 +198,20 @@ botonGuardar.addEventListener("click", async () => {
       imagen: frmImagen.value,
       audio: frmAudio.value
     };
-    const respuesta = await guardarPodcast(podcastData);
-    console.log(respuesta);
-
+      const respuesta = await guardarPodcast(podcastData);
+      console.log(respuesta);
   }
   await cargarTabla();
 });
 
+
 /*Fución para borrar un podcast */
 const botonBorrar = document.getElementById('boton-borrar');
 
-botonBorrar.addEventListener("click", async() => {
+botonBorrar.addEventListener("click", async () => {
   if (selectedRow) {
     const id = selectedRow.dataset.id;
     await borrarPodcast(id);
   }
- await cargarTabla();
+  await cargarTabla();
 });
