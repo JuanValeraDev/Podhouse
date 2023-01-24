@@ -1,8 +1,6 @@
-
-
 Recursos: 
 	-Colección de podcasts: /podcasts
-	-Podcast individual: /podcasts/id
+	-Podcast individual: /podcasts/:id
 	
 Create:
 	Envía en el cuerpo de la petición un objeto JSON que será
@@ -14,35 +12,41 @@ Create:
 		Content-type: application/json
 	Cuerpo: 
 	Objeto Json, todos los campos obligatorios
-		{titulo: "String",
-		episodio:  1,
-		temporada: 1,
+		{titulo: String,
+		episodio:  Integer,
+		temporada: Integer,
 		fecha: Date,
-		imagen: "String",
-		audio: "String"}
+		imagen: String,
+		audio: String}
 	Respuestas posibles:
 	- 201: "Created", en la cabecera Location tendremos la ruta del recurso
-	- 400: "Bar request", petición incorrecta
+	- 400: "Bad request", petición incorrecta
 	
 Read:
 	Recibe el conjunto de podcasts solicitado en la petición HTTP
 	
 	Método: GET
 	Recurso: /podcasts
-	Parámetros: puede haber filtro de búsqueda por título
+	Parámetros: por defecto no habrá ninguno, lo cual significará que queremos obetener 
+	todos los elementos que pertenezcan al recurso. Si la petición incluye parámetros, 
+	éstos serán palabras que servirán para filtrar los podcasts por título. En este caso
+	se obtendrán solamente aquellos cuyo título contenga, independientemete del orden,
+	las palabras utilizadas en el filtro. Por tanto, si ningún podcast cumple el filtro se 
+	devolverá un array vacío.
  			
 	Cuerpo: Vacío
 	
 	Respuestas posibles:
 	- 200: "OK", deberá tener la cabecera Content-type: application/json
 	 	en el cuerpo vendrá la colección de objetos json que hayan cumplido los criterios de búsqueda
-		Cuando no haya ningún criterio se entenderá que se quieren obtener todos
-	- 404: "Not Found", no se encuentra el recurso solicitado
-	
+	- 400: "Bad request", algún dato del cuerpo de la petición no es correcto	
+
 Update:
-	Edita cualquier dato de un podcast excepto el archivo de audio
+	Recibe un objeto Podcast y lo guarda sobre otro el recurso hacia el que se 
+	dirige el fetch, de esta forma lo sustituye conservando el id original.
+
 	Método: PUT
-	Recurso: /podcasts/id
+	Recurso: /podcasts/:id
 	Cabecera:
 		Content-type: application/json
 	Cuerpo:
@@ -51,10 +55,12 @@ Update:
 	- 204: "No content", se ha procesado con éxito
 	- 404: "Not Found", el elemento al que se desea acceder no existe
 	- 400: "Bad request", algún dato del cuerpo de la petición no es correcto
+
 Delete:
 	Borra un podcast de la colección /podcasts
-	Método:DELETE
-	Recurso: /podcasts/id
+
+	Método: DELETE
+	Recurso: /podcasts/:id
 	Cuerpo: Vacío
 	Respuestas posibles:
 	- 204: "No content", se ha procesado con éxito

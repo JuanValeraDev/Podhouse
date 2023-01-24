@@ -1,7 +1,6 @@
 /*
 TODO: Si hay un error en el fetch debería informar al usuario de lo que ha pasado
-Hay que ver cómo cambiar el formato de la fecha para que sea más amigable: 
-          Tienes que usar la funcion toLocaleString() para pasar el tipo Date a String.
+Está fallando en la edición.
 
 Falta implementar el buscador
 */
@@ -106,7 +105,6 @@ function abrirModal(evt) {
 
 
 /*Función para el fetch*/
-
 async function enviarFetch(url, metodo, body) {
   try {
     let opciones = { method: metodo };
@@ -118,15 +116,16 @@ async function enviarFetch(url, metodo, body) {
     if (respuesta.ok) {
       const tipoMIME = respuesta.headers.get("content-type");
       if (tipoMIME && tipoMIME.startsWith("application/json")) {
-        return await respuesta.json();
+        return { ok: true, data: await respuesta.json() };
       } else {
-        return await respuesta.text();
+        return { ok: true, data: await respuesta.text() };
       }
     } else {
       throw respuesta.statusText;
     }
   } catch (error) {
     console.log("Ha habido un error en el fetch:" + error)
+    return { ok: false, error: error.message };
   }
 }
 
@@ -148,24 +147,47 @@ async function borrarPodcast(id) {
 }
 
 /*Cargar tabla */
-/*Aquí yo creo que es donde tienes que obtener todos los podcasts y cambiarles el formato de la fecha
-y ya */
+
+// async function cargarTabla() {
+//   const cuerpoTabla = document.getElementById("cuerpo-tabla");
+//   cuerpoTabla.innerHTML = plantillaPodcasts({
+//     podcasts: await obtenerTodosLosPodcasts()
+//   })
+// }
+// cargarTabla();
+
+// async function cargarTabla() {
+  
+//   const podcasts = await obtenerTodosLosPodcasts();
+//   console.log(typeof podcasts);
+
+//   const podcastsConFechasJavaScript = podcasts.data.map(podcast => {
+//     podcast.fecha = new Date(podcast.fecha);
+//     return podcast;
+//   });
+//   const cuerpoTabla = document.getElementById("cuerpo-tabla");
+//   cuerpoTabla.innerHTML = plantillaPodcasts({ podcasts: podcastsConFechasJavaScript });
+// }
+// cargarTabla();
 async function cargarTabla() {
+  const podcasts = await obtenerTodosLosPodcasts();
+  const podcastsConFechasJavaScript = podcasts.data.map(podcast => {
+    podcast.fecha = new Date(podcast.fecha);
+    podcast.fechaFormateada = podcast.fecha.toLocaleDateString("es-ES", {
+      day: '2-digit',
+      month: '2-digit',
+      year: '2-digit'
+    });
+    return podcast;
+  });
   const cuerpoTabla = document.getElementById("cuerpo-tabla");
-  cuerpoTabla.innerHTML = plantillaPodcasts({
-    podcasts: await obtenerTodosLosPodcasts()
-  })
+  cuerpoTabla.innerHTML = plantillaPodcasts({ podcasts: podcastsConFechasJavaScript });
 }
 cargarTabla();
 
-const podcastDataPrueba = {
-  titulo: "Podcast de prueba",
-  episodio: 2,
-  temporada: 3,
-  fecha: new Date(2020, 02, 02),
-  imagen: "/img/AHD.jpg",
 
-};
+
+
 
 
 /*Función para crear y editar*/
@@ -185,10 +207,15 @@ botonGuardar.addEventListener("click", async () => {
       imagen: frmImagen.value,
       audio: selectedRow.querySelector('.audio-dentro-de-tabla').src
     };
-    
-      await editarPodcast(id, podcastDataEdicion);
-      esEdicion = false;
-    
+
+    const respuesta = await editarPodcast(id, podcastDataEdicion);
+    if (respuesta.ok) {
+      console.log(respuesta)
+    } else {
+      console.log("Error: " + respuesta.status)
+    }
+    esEdicion = false;
+
   } else {
     const podcastData = {
       titulo: frmTitulo.value,
@@ -198,8 +225,8 @@ botonGuardar.addEventListener("click", async () => {
       imagen: frmImagen.value,
       audio: frmAudio.value
     };
-      const respuesta = await guardarPodcast(podcastData);
-      console.log(respuesta);
+    const respuesta = await guardarPodcast(podcastData);
+    console.log(respuesta);
   }
   await cargarTabla();
 });

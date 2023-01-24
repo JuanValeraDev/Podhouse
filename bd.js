@@ -53,7 +53,7 @@ exports.encontrarPorId = async function (id) {
 
 exports.editar = async function (id, podcastData) {
     try{
-    const podcast = await exports.encontrarPorId(id);
+    const podcast = await exports.encontrarPorId(id); 
     await Object.assign(podcast, podcastData);
     await podcast.save();
     return podcast;
