@@ -1,7 +1,6 @@
 /*
-TODO: Si hay un error en el fetch debería informar al usuario de lo que ha pasado
-Está fallando en la edición.
-
+TODO: 
+Hay que averiguar por qué ahora no me deja acceder a los podcasts poniendo su ruta en la url
 Falta implementar el buscador
 */
 
@@ -105,27 +104,69 @@ function abrirModal(evt) {
 
 
 /*Función para el fetch*/
+/*
+async function enviarFetch(url, method, data) {
+  try {
+    const respuesta = await fetch(url, {
+      method,
+      body: data ? JSON.stringify(data) : undefined,
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if (!respuesta.ok) {
+      throw new Error(`Error ${respuesta.status}: ${respuesta.statusText}`);
+    }
+    const text = await respuesta.text();
+    if (method === 'PUT') {
+      console.log('Podcast editado con éxito');
+      alert('Podcast editado con éxito');
+    }
+    if (method === 'POST') {
+      console.log('Podcast creado con éxito');
+      alert('Podcast creado con éxito');
+    }
+    return text;
+  } catch (error) {
+    console.error(`Error al enviar la petición ${method} a ${url}: ${error}`);
+    alert(`Error al enviar la petición ${method} a ${url}`);
+  }
+}*/
+
 async function enviarFetch(url, metodo, body) {
   try {
-    let opciones = { method: metodo };
-    if (body) {
+    let opciones = { method: metodo }; if (body) {
       opciones.body = JSON.stringify(body);
       opciones.headers = { "Content-type": "application/json" };
     }
     const respuesta = await fetch(url, opciones);
+    if (!respuesta.ok) {
+      throw new Error(`Error ${respuesta.status}: ${respuesta.statusText}`);
+    }
     if (respuesta.ok) {
+      if (opciones.method === 'PUT') {
+        console.log('Podcast editado con éxito');
+        alert('Podcast editado con éxito');
+      }
+      if (opciones.method === 'POST') {
+        console.log('Podcast creado con éxito');
+        alert('Podcast creado con éxito');
+      }
+      if (opciones.method === 'DELETE') {
+        console.log('Podcast borrado con éxito');
+        alert('Podcast borrado con éxito');
+      }
       const tipoMIME = respuesta.headers.get("content-type");
       if (tipoMIME && tipoMIME.startsWith("application/json")) {
-        return { ok: true, data: await respuesta.json() };
+        return await respuesta.json();
       } else {
-        return { ok: true, data: await respuesta.text() };
+        return await respuesta.text();
       }
     } else {
       throw respuesta.statusText;
     }
   } catch (error) {
-    console.log("Ha habido un error en el fetch:" + error)
-    return { ok: false, error: error.message };
+    console.error(`Error al enviar la petición ${metodo} a ${url}: ${error}`);
+    alert(`Error al enviar la petición ${metodo} a ${url}`);
+    return error.message;
   }
 }
 
@@ -148,30 +189,9 @@ async function borrarPodcast(id) {
 
 /*Cargar tabla */
 
-// async function cargarTabla() {
-//   const cuerpoTabla = document.getElementById("cuerpo-tabla");
-//   cuerpoTabla.innerHTML = plantillaPodcasts({
-//     podcasts: await obtenerTodosLosPodcasts()
-//   })
-// }
-// cargarTabla();
-
-// async function cargarTabla() {
-  
-//   const podcasts = await obtenerTodosLosPodcasts();
-//   console.log(typeof podcasts);
-
-//   const podcastsConFechasJavaScript = podcasts.data.map(podcast => {
-//     podcast.fecha = new Date(podcast.fecha);
-//     return podcast;
-//   });
-//   const cuerpoTabla = document.getElementById("cuerpo-tabla");
-//   cuerpoTabla.innerHTML = plantillaPodcasts({ podcasts: podcastsConFechasJavaScript });
-// }
-// cargarTabla();
 async function cargarTabla() {
   const podcasts = await obtenerTodosLosPodcasts();
-  const podcastsConFechasJavaScript = podcasts.data.map(podcast => {
+  const podcastsConFechasJavaScript = podcasts.map(podcast => {
     podcast.fecha = new Date(podcast.fecha);
     podcast.fechaFormateada = podcast.fecha.toLocaleDateString("es-ES", {
       day: '2-digit',
@@ -207,15 +227,9 @@ botonGuardar.addEventListener("click", async () => {
       imagen: frmImagen.value,
       audio: selectedRow.querySelector('.audio-dentro-de-tabla').src
     };
-
     const respuesta = await editarPodcast(id, podcastDataEdicion);
-    if (respuesta.ok) {
-      console.log(respuesta)
-    } else {
-      console.log("Error: " + respuesta.status)
-    }
+    console.log(respuesta);
     esEdicion = false;
-
   } else {
     const podcastData = {
       titulo: frmTitulo.value,

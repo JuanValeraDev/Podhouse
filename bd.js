@@ -54,6 +54,10 @@ exports.encontrarPorId = async function (id) {
 exports.editar = async function (id, podcastData) {
     try{
     const podcast = await exports.encontrarPorId(id); 
+    console.log(podcast);
+    if(podcast===null){
+        return null;
+    }
     await Object.assign(podcast, podcastData);
     await podcast.save();
     return podcast;
