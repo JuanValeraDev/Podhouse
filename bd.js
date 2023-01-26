@@ -20,9 +20,9 @@ exports.conectar = async function () {
 exports.cerrarConexion = async function () {
     await mongoose.disconnect();
 };
-exports.buscar = async function (args) {
+exports.buscar = async function (params) {
     const consulta = Podcast.find();
-    const palabras = args.titulo
+    const palabras = params.titulo
         .split(" ")
         .map((s) => s.trim())
         .filter((s) => s.length > 0);

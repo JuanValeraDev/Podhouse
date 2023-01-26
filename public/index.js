@@ -1,7 +1,7 @@
 /*
 TODO: 
-Hay que averiguar por qué ahora no me deja acceder a los podcasts poniendo su ruta en la url
 Falta implementar el buscador
+Informar al usuario de alguna manera del resultado de sus operaciones
 */
 
 
@@ -103,34 +103,6 @@ function abrirModal(evt) {
 
 
 
-/*Función para el fetch*/
-/*
-async function enviarFetch(url, method, data) {
-  try {
-    const respuesta = await fetch(url, {
-      method,
-      body: data ? JSON.stringify(data) : undefined,
-      headers: { 'Content-Type': 'application/json' },
-    });
-    if (!respuesta.ok) {
-      throw new Error(`Error ${respuesta.status}: ${respuesta.statusText}`);
-    }
-    const text = await respuesta.text();
-    if (method === 'PUT') {
-      console.log('Podcast editado con éxito');
-      alert('Podcast editado con éxito');
-    }
-    if (method === 'POST') {
-      console.log('Podcast creado con éxito');
-      alert('Podcast creado con éxito');
-    }
-    return text;
-  } catch (error) {
-    console.error(`Error al enviar la petición ${method} a ${url}: ${error}`);
-    alert(`Error al enviar la petición ${method} a ${url}`);
-  }
-}*/
-
 async function enviarFetch(url, metodo, body) {
   try {
     let opciones = { method: metodo }; if (body) {
@@ -144,15 +116,12 @@ async function enviarFetch(url, metodo, body) {
     if (respuesta.ok) {
       if (opciones.method === 'PUT') {
         console.log('Podcast editado con éxito');
-        alert('Podcast editado con éxito');
       }
       if (opciones.method === 'POST') {
         console.log('Podcast creado con éxito');
-        alert('Podcast creado con éxito');
       }
       if (opciones.method === 'DELETE') {
         console.log('Podcast borrado con éxito');
-        alert('Podcast borrado con éxito');
       }
       const tipoMIME = respuesta.headers.get("content-type");
       if (tipoMIME && tipoMIME.startsWith("application/json")) {
@@ -165,7 +134,6 @@ async function enviarFetch(url, metodo, body) {
     }
   } catch (error) {
     console.error(`Error al enviar la petición ${metodo} a ${url}: ${error}`);
-    alert(`Error al enviar la petición ${metodo} a ${url}`);
     return error.message;
   }
 }
@@ -177,8 +145,8 @@ async function guardarPodcast(podcastData) {
 async function obtenerTodosLosPodcasts() {
   return await enviarFetch("/podcasts", "GET")
 }
-async function buscarPodcast(id) {
-  return await enviarFetch(`/podcasts/${id}`, "GET");
+async function buscarPodcast(titulo) {
+  return await enviarFetch("/podcasts", "GET", titulo);
 }
 async function editarPodcast(id, podcastData) {
   return await enviarFetch(`/podcasts/${id}`, "PUT", podcastData);
@@ -227,8 +195,8 @@ botonGuardar.addEventListener("click", async () => {
       imagen: frmImagen.value,
       audio: selectedRow.querySelector('.audio-dentro-de-tabla').src
     };
-    const respuesta = await editarPodcast(id, podcastDataEdicion);
-    console.log(respuesta);
+    await editarPodcast(id, podcastDataEdicion);
+
     esEdicion = false;
   } else {
     const podcastData = {
@@ -240,7 +208,7 @@ botonGuardar.addEventListener("click", async () => {
       audio: frmAudio.value
     };
     const respuesta = await guardarPodcast(podcastData);
-    console.log(respuesta);
+
   }
   await cargarTabla();
 });

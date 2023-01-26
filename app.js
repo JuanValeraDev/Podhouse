@@ -7,10 +7,6 @@ app.use(express.static("public"));
 app.listen(80, () => console.log("Servicio escuchando"));
 bd.conectar();
 
-/*
-TODO: Hay que borrar los mensajes que ya están llegando al usuario y la consola 
-desde el cliente.
-*/
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -18,36 +14,36 @@ app.use((err, req, res, next) => {
 });
 
 app.get("/podcasts", async (req, res) => {
-  res.json(await bd.buscar({ titulo: "" }));
+  res.json(await bd.buscar({ titulo: req.params.titulo }));
 });
 
- app.get("/podcasts/:id", async (req, res) => {
+/* app.get("/podcasts/:id", async (req, res) => {
    const podcast = await bd.encontrarPorId(req.params.id);
    if (podcast) res.json(podcast);
-   else res.status(404).send(`No existe un podcast con ID=${req.params.id}.`);
- });
+   else res.status(404);
+ });*/
 
 app.post("/podcasts", async (req, res) => {
   const podcast = await bd.guardar(req.body);
-  if (podcast) res.location(`/podcasts/${podcast._id}`).status(201).send("Podcast creado");
-  else res.status(400).send("Error, has introducido valores incorrectos.");
+  if (podcast) res.location(`/podcasts/${podcast._id}`).status(201);
+  else res.status(400);
 });
 
 app.put("/podcasts/:id", async (req, res) => {
   const podcastEditado = await bd.editar(req.params.id, req.body)
   if (podcastEditado===null) {
-    res.status(404).send("No se ha encontrado ningún podcast con ese id"); 
+    res.status(404); 
    } else if (podcastEditado === undefined){
-    res.status(400).send("Faltan datos obligatorios para poder editar el podcast");
+    res.status(400);
   }else{
-    res.location(`/podcasts/${podcastEditado._id}`).status(201).send("Podcast editado");
+    res.location(`/podcasts/${podcastEditado._id}`).status(201);
   }
 });
 
 app.delete("/podcasts/:id", async (req, res) => {
   if (await bd.borrar(req.params.id)) {
-    res.status(204).send("Podcast borrado con éxito");
+    res.status(204);
   } else {
-    res.sendStatus(404).send("No se ha encontrado ningún podcast con ese id");
+    res.sendStatus(404);
   }
 });
