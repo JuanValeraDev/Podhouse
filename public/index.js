@@ -5,7 +5,6 @@ Informar al usuario de alguna manera del resultado de sus operaciones
 */
 
 
-
 /*Funciones para abrir y cerrar el reproductor */
 const botonCerrar = document.querySelector('.boton-cerrar-reproductor');
 const reproductorCompleto = document.getElementById('reproductor-completo');
@@ -102,10 +101,10 @@ function abrirModal(evt) {
 }
 
 
-
 async function enviarFetch(url, metodo, body) {
   try {
-    let opciones = { method: metodo }; if (body) {
+    let opciones = { method: metodo };
+    if (body) {
       opciones.body = JSON.stringify(body);
       opciones.headers = { "Content-type": "application/json" };
     }
@@ -142,15 +141,19 @@ async function enviarFetch(url, metodo, body) {
 async function guardarPodcast(podcastData) {
   return await enviarFetch("/podcasts", "POST", podcastData);
 }
+
 async function obtenerTodosLosPodcasts() {
   return await enviarFetch("/podcasts", "GET")
 }
+
 async function buscarPodcast(titulo) {
   return await enviarFetch("/podcasts", "GET", titulo);
 }
+
 async function editarPodcast(id, podcastData) {
   return await enviarFetch(`/podcasts/${id}`, "PUT", podcastData);
 }
+
 async function borrarPodcast(id) {
   return await enviarFetch(`/podcasts/${id}`, "DELETE");
 }
@@ -171,11 +174,8 @@ async function cargarTabla() {
   const cuerpoTabla = document.getElementById("cuerpo-tabla");
   cuerpoTabla.innerHTML = plantillaPodcasts({ podcasts: podcastsConFechasJavaScript });
 }
+
 cargarTabla();
-
-
-
-
 
 
 /*Función para crear y editar*/
