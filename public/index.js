@@ -3,12 +3,29 @@ TODO:
 - Falta implementar el buscador: ten en cuenta que aquí hay dos métodos
 uno para cogerlos todos y otro para buscar por título. En la función
 de cargar tabla estás cogiéndolos todos.
-- Informar al usuario de alguna manera del resultado de sus operaciones
 - Implementar una función para que si le dan a cancelar al modal se borre lo que han escrito
--Problemas en la edición e inserción. Antes no se actualizaba la tabla tras una modificación, ahora
-directamente ni la hace.
+- Poner el logo de la web
+- Cambiar textos para explicar la nueva idea de negocio
+- Implemetar base de datos online y servicio de hosting gratuito
 */
 
+/*Función para crear muchos podcasts de golpe*/
+/*async function crearPodcasts() {
+    const podcastData = {
+        titulo: "Prueba",
+        episodio: 1,
+        temporada: 1,
+        fecha: new Date(2020, 0o2, 0o2),
+        imagen: "/img/MM.jpg",
+        audio: "/audios/MM.mp3"
+    };
+    for (let i = 0; i < 10; i++) {
+        guardarPodcast(podcastData);
+    }
+}
+crearPodcasts();
+
+*/
 
 /*Funciones para abrir y cerrar el reproductor */
 const botonCerrar = document.querySelector('.boton-cerrar-reproductor');
@@ -119,12 +136,15 @@ async function enviarFetch(url, metodo, body) {
         }
         if (respuesta.ok) {
             if (opciones.method === 'PUT') {
+                showToast("Podcast editado con éxito");
                 console.log('Podcast editado con éxito');
             }
             if (opciones.method === 'POST') {
+                showToast("Podcast guardado con éxito");
                 console.log('Podcast creado con éxito');
             }
             if (opciones.method === 'DELETE') {
+                showToast("Podcast borrado con éxito");
                 console.log('Podcast borrado con éxito');
             }
             const tipoMIME = respuesta.headers.get("content-type");
@@ -179,6 +199,7 @@ async function cargarTabla() {
     const cuerpoTabla = document.getElementById("cuerpo-tabla");
     cuerpoTabla.innerHTML = plantillaPodcasts({podcasts: podcastsConFechasJavaScript});
 }
+
 cargarTabla();
 
 
@@ -208,6 +229,7 @@ botonGuardar.addEventListener("click", async () => {
             imagen: frmImagen.value,
             audio: frmAudio.value
         };
+
         await guardarPodcast(podcastData);
     }
     await cargarTabla();
@@ -224,3 +246,27 @@ botonBorrar.addEventListener("click", async () => {
     }
     await cargarTabla();
 });
+
+/*Función para el Toast */
+function showToast(message) {
+    const toastContainer = document.getElementById("toastContainer");
+    const toast = document.createElement("div");
+    toast.innerText = message;
+    toast.style.backgroundColor = "#263159";
+    toast.style.color = "#FFFBEB";
+    toast.style.border = "#251749";
+    toast.style.padding = "10px";
+    toast.style.position = "fixed";
+    toast.style.bottom = "200px";
+    toast.style.right = "40%";
+    toast.style.boxShadow = "2px 2px 10px #000";
+    toastContainer.appendChild(toast);
+
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
+}
+
+
+
+

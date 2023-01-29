@@ -24,25 +24,25 @@ app.get("/podcasts", async (req, res) => {
 
 app.post("/podcasts", async (req, res) => {
     const podcast = await bd.guardar(req.body);
-    if (podcast) res.location(`/podcasts/${podcast._id}`).status(201);
-    else res.status(400);
+    if (podcast) res.location(`/podcasts/${podcast._id}`).status(201).send();
+    else res.status(400).send();
 });
 
 app.put("/podcasts/:id", async (req, res) => {
     const podcastEditado = await bd.editar(req.params.id, req.body)
     if (podcastEditado === null) {
-        res.status(404);
+        res.status(404).send();
     } else if (podcastEditado === undefined) {
-        res.status(400);
+        res.status(400).send();
     } else {
-        res.location(`/podcasts/${podcastEditado._id}`).status(201);
+        res.location(`/podcasts/${podcastEditado._id}`).status(201).send();
     }
 });
 
 app.delete("/podcasts/:id", async (req, res) => {
     if (await bd.borrar(req.params.id)) {
-        res.status(204);
+        res.status(204).send();
     } else {
-        res.sendStatus(404);
+        res.sendStatus(404).send();
     }
 });
