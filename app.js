@@ -13,7 +13,6 @@ app.use((err, req, res, next) => {
 });
 
 app.get("/podcasts", async (req, res) => {
-    console.log(req.params);
     res.json(await bd.buscar({titulo: ""}));
 });
 

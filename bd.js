@@ -21,7 +21,6 @@ exports.cerrarConexion = async function () {
     await mongoose.disconnect();
 };
 exports.buscar = async function (params) {
-    console.log(params);
     const consulta = Podcast.find();
     const palabras = params.titulo
         .split(" ")
@@ -54,7 +53,6 @@ exports.encontrarPorId = async function (id) {
 exports.editar = async function (id, podcastData) {
     try {
         const podcast = await exports.encontrarPorId(id);
-        console.log(podcast);
         if (podcast === null) {
             return null;
         }
