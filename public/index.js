@@ -6,7 +6,10 @@ de cargar tabla estás cogiéndolos todos.
 - Implementar una función para que si le dan a cancelar al modal se borre lo que han escrito
 - Poner el logo de la web
 - Cambiar textos para explicar la nueva idea de negocio
-- Implemetar base de datos online y servicio de hosting gratuito
+- Implemetar base de datos online y servicio de hosting gratuito. De momento he puesto la base de
+datos online en Atlas y estoy intentando que me cree un hosting en render.com desde el proyecto de github pero parece estar dando
+errores. Ten en cuenta que en el dashboard de render puedes ver los intentos que ha hecho de deploy
+y ver dónde ha dado el error.
 */
 
 /*Función para crear muchos podcasts de golpe*/
