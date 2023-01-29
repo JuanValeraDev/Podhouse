@@ -2,9 +2,9 @@ require("dotenv").config();
 const bd = require("./bd.js");
 const express = require("express");
 const app = express();
+const PORT = process.env.PORT || process.env.PUERTO || 80;
 app.use(express.json());
 app.use(express.static("public"));
-const PORT = process.env.PORT || process.env.PUERTO || 80;
 
 //app.listen(80, () => console.log("Servicio escuchando"));
 bd.conectar().then(() => {
