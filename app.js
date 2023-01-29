@@ -1,10 +1,18 @@
+require("dotenv").config();
 const bd = require("./bd.js");
 const express = require("express");
 const app = express();
 app.use(express.json());
 app.use(express.static("public"));
-app.listen(80, () => console.log("Servicio escuchando"));
-bd.conectar();
+const PORT = process.env.PORT || process.env.PUERTO || 80;
+
+//app.listen(80, () => console.log("Servicio escuchando"));
+bd.conectar().then(() => {
+    console.log("Conectado a la base de datos.");
+    app.listen(PORT, () =>
+        console.log(`Servidor escuchando en el puerto ${PORT}.`)
+    );
+});
 
 
 app.use((err, req, res, next) => {
