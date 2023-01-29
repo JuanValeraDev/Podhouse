@@ -24,8 +24,8 @@ de cargar tabla estás cogiéndolos todos.
     }
 }
 crearPodcasts();
-
 */
+
 
 /*Funciones para abrir y cerrar el reproductor */
 const botonCerrar = document.querySelector('.boton-cerrar-reproductor');

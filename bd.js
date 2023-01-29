@@ -15,7 +15,7 @@ const Podcast = new mongoose.model("Podcast", PodcastSchema);
 
 exports.conectar = async function () {
     mongoose.set("strictQuery", false);
-    await mongoose.connect("mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.0");
+    await mongoose.connect("mongodb+srv://juanvalera:mongodbjuan1994@cluster0.hho5x4v.mongodb.net/?retryWrites=true&w=majority");
 };
 exports.cerrarConexion = async function () {
     await mongoose.disconnect();
