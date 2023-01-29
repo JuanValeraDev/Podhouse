@@ -9,7 +9,7 @@ de cargar tabla estás cogiéndolos todos.
 - Implemetar base de datos online y servicio de hosting gratuito. De momento he puesto la base de
 datos online en Atlas y estoy intentando que me cree un hosting en render.com desde el proyecto de github pero parece estar dando
 errores. Ten en cuenta que en el dashboard de render puedes ver los intentos que ha hecho de deploy
-y ver dónde ha dado el error.
+y ver dónde ha dado el error. He añadido la opción de que acepte todas las ip en Atlas.
 */
 
 /*Función para crear muchos podcasts de golpe*/
