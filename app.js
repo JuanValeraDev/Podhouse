@@ -16,6 +16,7 @@ app.use(express.static('public'));
 
 //Aquí dos posibles soluciones con las que estoy investigando:
 
+/*
 app.get('/plantillaPodcasts.js', function (req, res) {
     res.set('Content-Type', 'application/javascript');
     res.sendFile(path.join(process.cwd(), 'public/plantillaPodcasts.js'));
@@ -28,6 +29,8 @@ app.use(express.static('public', {
         }
     }
 }));
+
+*/
 
 
 bd.conectar().then(() => {

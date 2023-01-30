@@ -1,0 +1,20 @@
+function pug_attr(t,e,n,r){if(!1===e||null==e||!e&&("class"===t||"style"===t))return"";if(!0===e)return" "+(r?t:t+'="'+t+'"');var f=typeof e;return"object"!==f&&"function"!==f||"function"!=typeof e.toJSON||(e=e.toJSON()),"string"==typeof e||(e=JSON.stringify(e),n||-1===e.indexOf('"'))?(n&&(e=pug_escape(e))," "+t+'="'+e+'"'):" "+t+"='"+e.replace(/'/g,"&#39;")+"'"}
+function pug_escape(e){var a=""+e,t=pug_match_html.exec(a);if(!t)return e;var r,c,n,s="";for(r=t.index,c=0;r<a.length;r++){switch(a.charCodeAt(r)){case 34:n="&quot;";break;case 38:n="&amp;";break;case 60:n="&lt;";break;case 62:n="&gt;";break;default:continue}c!==r&&(s+=a.substring(c,r)),c=r+1,s+=n}return c!==r?s+a.substring(c,r):s}
+var pug_match_html=/["&<>]/;function plantillaPodcasts(locals) {var pug_html = "", pug_mixins = {}, pug_interp;;var locals_for_with = (locals || {});(function (podcasts) {// iterate podcasts
+;(function(){
+  var $$obj = podcasts;
+  if ('number' == typeof $$obj.length) {
+      for (var pug_index0 = 0, $$l = $$obj.length; pug_index0 < $$l; pug_index0++) {
+        var podcast = $$obj[pug_index0];
+pug_html = pug_html + "\u003Ctr" + (pug_attr("data-id", podcast._id, true, false)) + "\u003E \u003Ctd\u003E \u003Cp class=\"titulo-fila\"\u003E" + (pug_escape(null == (pug_interp = podcast.titulo) ? "" : pug_interp)) + "\u003C\u002Fp\u003E\u003C\u002Ftd\u003E\u003Ctd\u003E \u003Cp class=\"episodio-fila\"\u003E" + (pug_escape(null == (pug_interp = podcast.episodio) ? "" : pug_interp)) + "\u003C\u002Fp\u003E\u003C\u002Ftd\u003E\u003Ctd\u003E \u003Cp class=\"temporada-fila\"\u003E" + (pug_escape(null == (pug_interp = podcast.temporada) ? "" : pug_interp)) + "\u003C\u002Fp\u003E\u003C\u002Ftd\u003E\u003Ctd\u003E \u003Cp class=\"fecha-fila\"\u003E" + (pug_escape(null == (pug_interp = podcast.fechaFormateada) ? "" : pug_interp)) + "\u003C\u002Fp\u003E\u003C\u002Ftd\u003E\u003Ctd\u003E \u003Cp\u003E\u003Cspan class=\"material-icons play play-button-table btn btn-light\"\u003Eplay_circle\u003C\u002Fspan\u003E\u003C\u002Fp\u003E\u003C\u002Ftd\u003E\u003Ctd class=\"d-none\"\u003E\u003Cimg" + (" class=\"imagen-dentro-de-tabla\""+pug_attr("src", podcast.imagen, true, false)+" alt=\"Imagen del podcast\"") + "\u002F\u003E\u003C\u002Ftd\u003E\u003Ctd class=\"d-none\"\u003E\u003Caudio" + (" class=\"audio-dentro-de-tabla\""+pug_attr("src", podcast.audio, true, false)) + "\u003E\u003C\u002Faudio\u003E\u003C\u002Ftd\u003E\u003C\u002Ftr\u003E";
+      }
+  } else {
+    var $$l = 0;
+    for (var pug_index0 in $$obj) {
+      $$l++;
+      var podcast = $$obj[pug_index0];
+pug_html = pug_html + "\u003Ctr" + (pug_attr("data-id", podcast._id, true, false)) + "\u003E \u003Ctd\u003E \u003Cp class=\"titulo-fila\"\u003E" + (pug_escape(null == (pug_interp = podcast.titulo) ? "" : pug_interp)) + "\u003C\u002Fp\u003E\u003C\u002Ftd\u003E\u003Ctd\u003E \u003Cp class=\"episodio-fila\"\u003E" + (pug_escape(null == (pug_interp = podcast.episodio) ? "" : pug_interp)) + "\u003C\u002Fp\u003E\u003C\u002Ftd\u003E\u003Ctd\u003E \u003Cp class=\"temporada-fila\"\u003E" + (pug_escape(null == (pug_interp = podcast.temporada) ? "" : pug_interp)) + "\u003C\u002Fp\u003E\u003C\u002Ftd\u003E\u003Ctd\u003E \u003Cp class=\"fecha-fila\"\u003E" + (pug_escape(null == (pug_interp = podcast.fechaFormateada) ? "" : pug_interp)) + "\u003C\u002Fp\u003E\u003C\u002Ftd\u003E\u003Ctd\u003E \u003Cp\u003E\u003Cspan class=\"material-icons play play-button-table btn btn-light\"\u003Eplay_circle\u003C\u002Fspan\u003E\u003C\u002Fp\u003E\u003C\u002Ftd\u003E\u003Ctd class=\"d-none\"\u003E\u003Cimg" + (" class=\"imagen-dentro-de-tabla\""+pug_attr("src", podcast.imagen, true, false)+" alt=\"Imagen del podcast\"") + "\u002F\u003E\u003C\u002Ftd\u003E\u003Ctd class=\"d-none\"\u003E\u003Caudio" + (" class=\"audio-dentro-de-tabla\""+pug_attr("src", podcast.audio, true, false)) + "\u003E\u003C\u002Faudio\u003E\u003C\u002Ftd\u003E\u003C\u002Ftr\u003E";
+    }
+  }
+}).call(this);
+}.call(this,"podcasts" in locals_for_with?locals_for_with.podcasts:typeof podcasts!=="undefined"?podcasts:undefined));;return pug_html;}
