@@ -1,3 +1,11 @@
+/*
+* TODO: El problema que estoy teniéndo es que el servicio de hosting de Render
+*  está recibiendo el archivo plantillaPodcasts.js con un tipo MIME "text/html" y por eso
+*  no lo está ejecutando como javascript, lo cual está haciendo que no se cargen las filas de la tabla.
+*  He probado en el express.static a indicarle que si el archivo es .js lo envíe con la cabecera
+*  'application/javascript' pero cuando vuelvo a levantar el servicio en la web, la consola del
+*   navegador sigue diciendo que está recibiendo el archivo "plantillaPodcasts.js" como MIME text.*/
+
 require("dotenv").config();
 const bd = require("./bd.js");
 const express = require("express");
@@ -13,12 +21,6 @@ app.use(express.static('public', {
 }));
 
 
-/*TODO: de alguna forma hay que implementar en el servidor
-*  la compilación de la plantilla pug y enviar los datos
-* al cliente a través del fetch, creo.
-* Con algo como esto: const pug = require('pug');
-const compiledFunction = pug.compileFile('plantillaPodcasts.pug');
-const html = compiledFunction({  locals  })*/
 
 bd.conectar().then(() => {
     console.log("Conectado a la base de datos.");
