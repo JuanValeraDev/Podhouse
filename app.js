@@ -4,7 +4,14 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PUERTO || 7000 ||process.env.PORT;
 app.use(express.json());
-app.use(express.static("public"));
+app.use(express.static('public', {
+    setHeaders: function (res, path) {
+        if (path.endsWith('.js')) {
+            res.set('Content-Type', 'application/javascript');
+        }
+    }
+}));
+
 
 /*TODO: de alguna forma hay que implementar en el servidor
 *  la compilación de la plantilla pug y enviar los datos
@@ -15,9 +22,9 @@ const html = compiledFunction({  locals  })*/
 
 
 
-/*bd.conectar(process.env.MONGODB_URL);
+bd.conectar(process.env.MONGODB_URL);
 app.listen(80, () => console.log("Servicio escuchando"));
-*/
+
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
