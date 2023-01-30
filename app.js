@@ -2,19 +2,13 @@ require("dotenv").config();
 const bd = require("./bd.js");
 const express = require("express");
 const app = express();
-const PORT = process.env.PORT || process.env.PUERTO || 80;
+const PORT = process.env.PUERTO || 7000 ||process.env.PORT;
 app.use(express.json());
 app.use(express.static("public"));
 
-bd.conectar(process.env.MONGODB_URL);
+/*bd.conectar(process.env.MONGODB_URL);
 app.listen(80, () => console.log("Servicio escuchando"));
-/*bd.conectar().then(() => {
-    console.log("Conectado a la base de datos.");
-    app.listen(PORT, () =>
-        console.log(`Servidor escuchando en el puerto ${PORT}.`)
-    );
-});*/
-
+*/
 
 app.use((err, req, res, next) => {
     console.error(err.stack);
@@ -55,3 +49,11 @@ app.delete("/podcasts/:id", async (req, res) => {
         res.sendStatus(404).send();
     }
 });
+
+bd.conectar().then(() => {
+    console.log("Conectado a la base de datos.");
+    app.listen(PORT, () =>
+        console.log(`Servidor escuchando en el puerto ${PORT}.`)
+    );
+}).catch(reason => console.log("Error al conectar a la base de datos"+reason));
+
