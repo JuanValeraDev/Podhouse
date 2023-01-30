@@ -12,6 +12,15 @@ const express = require("express");
 const app = express();
 const PORT = process.env.PUERTO || 7000 ||process.env.PORT;
 app.use(express.json());
+app.use(express.static('public'));
+
+//Aquí dos posibles soluciones con las que estoy investigando:
+
+app.get('/plantillaPodcasts.js', function (req, res) {
+    res.set('Content-Type', 'application/javascript');
+    res.sendFile(path.join(process.cwd(), 'public/plantillaPodcasts.js'));
+});
+
 app.use(express.static('public', {
     setHeaders: function (res, path) {
         if (path.endsWith('.js')) {
@@ -19,7 +28,6 @@ app.use(express.static('public', {
         }
     }
 }));
-
 
 
 bd.conectar().then(() => {
