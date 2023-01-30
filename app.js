@@ -20,10 +20,12 @@ app.use(express.static('public', {
 const compiledFunction = pug.compileFile('plantillaPodcasts.pug');
 const html = compiledFunction({  locals  })*/
 
-
-
-bd.conectar(process.env.MONGODB_URL);
-app.listen(80, () => console.log("Servicio escuchando"));
+bd.conectar().then(() => {
+    console.log("Conectado a la base de datos.");
+    app.listen(PORT, () =>
+        console.log(`Servidor escuchando en el puerto ${PORT}.`)
+    );
+}).catch(reason => console.log("Error al conectar a la base de datos"+reason));
 
 
 app.use((err, req, res, next) => {
@@ -66,10 +68,5 @@ app.delete("/podcasts/:id", async (req, res) => {
     }
 });
 
-bd.conectar().then(() => {
-    console.log("Conectado a la base de datos.");
-    app.listen(PORT, () =>
-        console.log(`Servidor escuchando en el puerto ${PORT}.`)
-    );
-}).catch(reason => console.log("Error al conectar a la base de datos"+reason));
+
 
