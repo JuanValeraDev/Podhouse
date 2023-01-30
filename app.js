@@ -6,13 +6,14 @@ const PORT = process.env.PORT || process.env.PUERTO || 80;
 app.use(express.json());
 app.use(express.static("public"));
 
-//app.listen(80, () => console.log("Servicio escuchando"));
-bd.conectar().then(() => {
+bd.conectar(process.env.MONGODB_URL);
+app.listen(80, () => console.log("Servicio escuchando"));
+/*bd.conectar().then(() => {
     console.log("Conectado a la base de datos.");
     app.listen(PORT, () =>
         console.log(`Servidor escuchando en el puerto ${PORT}.`)
     );
-});
+});*/
 
 
 app.use((err, req, res, next) => {
