@@ -6,7 +6,12 @@ const PORT = process.env.PUERTO || 7000 ||process.env.PORT;
 app.use(express.json());
 app.use(express.static("public"));
 
-
+/*TODO: de alguna forma hay que implementar en el servidor
+*  la compilación de la plantilla pug y enviar los datos
+* al cliente a través del fetch, creo.
+* Con algo como esto: const pug = require('pug');
+const compiledFunction = pug.compileFile('plantillaPodcasts.pug');
+const html = compiledFunction({  locals  })*/
 
 
 

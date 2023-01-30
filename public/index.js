@@ -198,19 +198,12 @@ async function cargarTabla() {
         });
         return podcast;
     });
-    try {
 
-        const pug = require('pug');
-        const compiledFunction = pug.compileFile('plantillaPodcasts.pug');
-        const html = compiledFunction({podcasts: podcastsConFechasJavaScript});
-        const cuerpoTabla = document.getElementById("cuerpo-tabla");
-        cuerpoTabla.innerHTML = html;
-    } catch (error) {
-        console.log(error);
-    }
-    /* const cuerpoTabla = document.getElementById("cuerpo-tabla");
-     cuerpoTabla.innerHTML = plantillaPodcasts({podcasts: podcastsConFechasJavaScript});
- */
+    const cuerpoTabla = document.getElementById("cuerpo-tabla");
+    cuerpoTabla.innerHTML = plantillaPodcasts({podcasts: podcastsConFechasJavaScript});
+   /* const cuerpoTabla = document.getElementById("cuerpo-tabla");
+    cuerpoTabla.innerHTML = plantillaPodcasts({podcasts: podcastsConFechasJavaScript});
+*/
 }
 
 
