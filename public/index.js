@@ -1,15 +1,12 @@
 /*
 TODO: 
-- Falta implementar el buscador: ten en cuenta que aquí hay dos métodos
+- !!!Falta implementar el buscador: ten en cuenta que aquí hay dos métodos
 uno para cogerlos todos y otro para buscar por título. En la función
 de cargar tabla estás cogiéndolos todos.
 - Implementar una función para que si le dan a cancelar al modal se borre lo que han escrito
 - Poner el logo de la web
 - Cambiar textos para explicar la nueva idea de negocio
-- Implemetar base de datos online y servicio de hosting gratuito. De momento he puesto la base de
-datos online en Atlas y estoy intentando que me cree un hosting en render.com desde el proyecto de github pero parece estar dando
-errores. Ten en cuenta que en el dashboard de render puedes ver los intentos que ha hecho de deploy
-y ver dónde ha dado el error. He añadido la opción de que acepte todas las ip en Atlas.
+- Que al darle al play en la tabla se empiece a reproducir directamente el audio.
 */
 
 /*Función para crear muchos podcasts de golpe*/
@@ -52,8 +49,8 @@ reproductorCompleto.addEventListener("mouseout", dragEnd);
 reproductorCompleto.addEventListener("mousemove", drag);
 
 function establecerPosicionOriginal() {
-    originalY = reproductorCompleto.offsetLeft;
-    originalY = reproductorCompleto.offsetTop;
+    originalX = reproductorCompleto.offsetLeft;
+    originalY= reproductorCompleto.offsetTop;
 
 }
 
@@ -81,6 +78,7 @@ function drag(e) {
     }
 }
 
+
 function setTranslate(xPos, yPos, el) {
     el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
 }
@@ -90,20 +88,8 @@ function setTranslate(xPos, yPos, el) {
 tabla.addEventListener('click', (event) => {
     if (event.target.matches('.play-button-table')) {
         reproductorCompleto.style.display = 'flex';
-        /* TODO: Esto es para intentar meterle cookies para que el reproductor cada vez que se cierre
-              al abrirlo vuelva a estar en el sitio original, pero no está funcionando.
-         var cookies = document.cookie.split(";");
-          for (var i = 0; i < cookies.length; i++) {
-              var cookie = cookies[i];
-              var eqPos = cookie.indexOf("=");
-              var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-              if (name == "reproductor_x") {
-                  reproductorCompleto.style.left = cookie.substr(eqPos + 1) + "px";
-              }
-              if (name == "reproductor_y") {
-                  reproductorCompleto.style.top = cookie.substr(eqPos + 1) + "px";
-              }
-          }*/
+        /*Con esto del sessionStorage estoy*/
+       sessionStorage.key(1,reproductorCompleto.style.offSetLeft)
 
         row = event.target.closest('tr');
 
@@ -119,9 +105,9 @@ tabla.addEventListener('click', (event) => {
 
 botonCerrar.addEventListener('click', () => {
     reproductor.pause();
-    /* document.cookie = "reproductor_x=" + reproductorCompleto.offsetLeft + "; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/;";
-     document.cookie = "reproductor_y=" + reproductorCompleto.offsetTop + "; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/;";
-   */
+    document.cookie = "reproductor_x=" + reproductorCompleto.offsetLeft + "; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/;";
+    document.cookie = "reproductor_y=" + reproductorCompleto.offsetTop + "; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/;";
+
     reproductorCompleto.style.display = 'none';
 });
 
@@ -271,9 +257,7 @@ async function cargarTabla() {
 
     const cuerpoTabla = document.getElementById("cuerpo-tabla");
     cuerpoTabla.innerHTML = plantillaPodcasts({podcasts: podcastsConFechasJavaScript});
-    /* const cuerpoTabla = document.getElementById("cuerpo-tabla");
-     cuerpoTabla.innerHTML = plantillaPodcasts({podcasts: podcastsConFechasJavaScript});
- */
+
 }
 
 
