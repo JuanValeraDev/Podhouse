@@ -28,22 +28,83 @@ y ver dónde ha dado el error. He añadido la opción de que acepte todas las ip
 }
 crearPodcasts();
 */
-
-/*Funciones para abrir y cerrar el reproductor */
 const botonCerrar = document.querySelector('.boton-cerrar-reproductor');
 const reproductorCompleto = document.getElementById('reproductor-completo');
 const reproductor = document.querySelector('.reproductor');
-
-botonCerrar.addEventListener('click', () => {
-    reproductor.pause();
-    reproductorCompleto.style.display = 'none';
-});
-
-
 const tabla = document.getElementById('cuerpo-tabla');
+
+/*Función para mover el reproductor arrastrándolo con el ratón*/
+let estaEnMovimiento = false;
+let actualX;
+let actualY;
+let inicialX;
+let inicialY;
+let xOffset = 0;
+let yOffset = 0;
+let originalX = 0;
+let originalY = 0;
+
+reproductorCompleto.addEventListener("mousedown", establecerPosicionOriginal);
+
+reproductorCompleto.addEventListener("mousedown", dragStart);
+reproductorCompleto.addEventListener("mouseup", dragEnd);
+reproductorCompleto.addEventListener("mouseout", dragEnd);
+reproductorCompleto.addEventListener("mousemove", drag);
+
+function establecerPosicionOriginal() {
+    originalY = reproductorCompleto.offsetLeft;
+    originalY = reproductorCompleto.offsetTop;
+
+}
+
+function dragStart(e) {
+    inicialX = e.clientX - xOffset;
+    inicialY = e.clientY - yOffset;
+
+    estaEnMovimiento = true;
+}
+
+function dragEnd(e) {
+    estaEnMovimiento = false;
+}
+
+function drag(e) {
+    if (estaEnMovimiento) {
+        e.preventDefault();
+        actualX = e.clientX - inicialX;
+        actualY = e.clientY - inicialY;
+
+        xOffset = actualX;
+        yOffset = actualY;
+
+        setTranslate(actualX, actualY, reproductorCompleto);
+    }
+}
+
+function setTranslate(xPos, yPos, el) {
+    el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+}
+
+/*Funciones para abrir y cerrar el reproductor */
+
 tabla.addEventListener('click', (event) => {
     if (event.target.matches('.play-button-table')) {
         reproductorCompleto.style.display = 'flex';
+        /* TODO: Esto es para intentar meterle cookies para que el reproductor cada vez que se cierre
+              al abrirlo vuelva a estar en el sitio original, pero no está funcionando.
+         var cookies = document.cookie.split(";");
+          for (var i = 0; i < cookies.length; i++) {
+              var cookie = cookies[i];
+              var eqPos = cookie.indexOf("=");
+              var name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+              if (name == "reproductor_x") {
+                  reproductorCompleto.style.left = cookie.substr(eqPos + 1) + "px";
+              }
+              if (name == "reproductor_y") {
+                  reproductorCompleto.style.top = cookie.substr(eqPos + 1) + "px";
+              }
+          }*/
+
         row = event.target.closest('tr');
 
         const titulo = row.querySelector('.titulo-fila').textContent;
@@ -55,6 +116,15 @@ tabla.addEventListener('click', (event) => {
         document.querySelector('.reproductor').src = audio;
     }
 });
+
+botonCerrar.addEventListener('click', () => {
+    reproductor.pause();
+    /* document.cookie = "reproductor_x=" + reproductorCompleto.offsetLeft + "; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/;";
+     document.cookie = "reproductor_y=" + reproductorCompleto.offsetTop + "; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/;";
+   */
+    reproductorCompleto.style.display = 'none';
+});
+
 
 /*Función para seleccionar o deseleccionar una fila */
 let selectedRow = null;
@@ -201,9 +271,9 @@ async function cargarTabla() {
 
     const cuerpoTabla = document.getElementById("cuerpo-tabla");
     cuerpoTabla.innerHTML = plantillaPodcasts({podcasts: podcastsConFechasJavaScript});
-   /* const cuerpoTabla = document.getElementById("cuerpo-tabla");
-    cuerpoTabla.innerHTML = plantillaPodcasts({podcasts: podcastsConFechasJavaScript});
-*/
+    /* const cuerpoTabla = document.getElementById("cuerpo-tabla");
+     cuerpoTabla.innerHTML = plantillaPodcasts({podcasts: podcastsConFechasJavaScript});
+ */
 }
 
 
@@ -273,6 +343,7 @@ function showToast(message) {
         toast.remove();
     }, 3000);
 }
+
 
 
 
