@@ -1,9 +1,8 @@
-
 require("dotenv").config();
 const bd = require("./bd.js");
 const express = require("express");
 const app = express();
-const PORT = process.env.PUERTO || 7000 ||process.env.PORT;
+const PORT = process.env.PUERTO || 7000 || process.env.PORT;
 app.use(express.json());
 app.use(express.static('public'));
 
@@ -13,7 +12,7 @@ bd.conectar().then(() => {
     app.listen(PORT, () =>
         console.log(`Servidor escuchando en el puerto ${PORT}.`)
     );
-}).catch(reason => console.log("Error al conectar a la base de datos"+reason));
+}).catch(reason => console.log("Error al conectar a la base de datos" + reason));
 
 
 app.use((err, req, res, next) => {
@@ -22,7 +21,12 @@ app.use((err, req, res, next) => {
 });
 
 app.get("/podcasts", async (req, res) => {
-    res.json(await bd.buscar({titulo: ""}));
+    if (req.body.titulo) {
+        let busqueda = req.query.titulo.text();
+        res.json(await bd.buscar({titulo: busqueda}));
+    } else {
+        res.json(await bd.buscar({titulo:""}));
+    }
 });
 
 /* app.get("/podcasts/:id", async (req, res) => {

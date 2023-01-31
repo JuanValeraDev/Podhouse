@@ -25,118 +25,16 @@ de cargar tabla estás cogiéndolos todos.
 }
 crearPodcasts();
 */
+cargarTabla();
 const botonCerrar = document.querySelector('.boton-cerrar-reproductor');
 const reproductorCompleto = document.getElementById('reproductor-completo');
 const reproductor = document.querySelector('.reproductor');
 const tabla = document.getElementById('cuerpo-tabla');
-
-/*Función para mover el reproductor arrastrándolo con el ratón*/
-let estaEnMovimiento = false;
-let actualX;
-let actualY;
-let inicialX;
-let inicialY;
-let xOffset = 0;
-let yOffset = 0;
-let originalX = 0;
-let originalY = 0;
-
-reproductorCompleto.addEventListener("mousedown", establecerPosicionOriginal);
-
-reproductorCompleto.addEventListener("mousedown", dragStart);
-reproductorCompleto.addEventListener("mouseup", dragEnd);
-reproductorCompleto.addEventListener("mouseout", dragEnd);
-reproductorCompleto.addEventListener("mousemove", drag);
-
-function establecerPosicionOriginal() {
-    originalX = reproductorCompleto.offsetLeft;
-    originalY= reproductorCompleto.offsetTop;
-
-}
-
-function dragStart(e) {
-    inicialX = e.clientX - xOffset;
-    inicialY = e.clientY - yOffset;
-
-    estaEnMovimiento = true;
-}
-
-function dragEnd(e) {
-    estaEnMovimiento = false;
-}
-
-function drag(e) {
-    if (estaEnMovimiento) {
-        e.preventDefault();
-        actualX = e.clientX - inicialX;
-        actualY = e.clientY - inicialY;
-
-        xOffset = actualX;
-        yOffset = actualY;
-
-        setTranslate(actualX, actualY, reproductorCompleto);
-    }
-}
-
-
-function setTranslate(xPos, yPos, el) {
-    el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
-}
-
-/*Funciones para abrir y cerrar el reproductor */
-
-tabla.addEventListener('click', (event) => {
-    if (event.target.matches('.play-button-table')) {
-        reproductorCompleto.style.display = 'flex';
-        /*Con esto del sessionStorage estoy*/
-       sessionStorage.key(1,reproductorCompleto.style.offSetLeft)
-
-        row = event.target.closest('tr');
-
-        const titulo = row.querySelector('.titulo-fila').textContent;
-        const imagen = row.querySelector('.imagen-dentro-de-tabla').src;
-        const audio = row.querySelector('.audio-dentro-de-tabla').src;
-
-        document.querySelector('.imagen-reproductor').src = imagen;
-        document.querySelector('.titulo-reproductor').textContent = titulo;
-        document.querySelector('.reproductor').src = audio;
-    }
-});
-
-botonCerrar.addEventListener('click', () => {
-    reproductor.pause();
-    document.cookie = "reproductor_x=" + reproductorCompleto.offsetLeft + "; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/;";
-    document.cookie = "reproductor_y=" + reproductorCompleto.offsetTop + "; expires=Thu, 18 Dec 2023 12:00:00 UTC; path=/;";
-
-    reproductorCompleto.style.display = 'none';
-});
-
-
-/*Función para seleccionar o deseleccionar una fila */
-let selectedRow = null;
-
-tabla.addEventListener('click', (event) => {
-    const row = event.target.parentNode;
-    if (row.tagName === 'TR') {
-        if (row === selectedRow) {
-            row.style.backgroundColor = '';
-            row.style.color = '#251749'
-            selectedRow = null;
-        } else {
-            row.style.backgroundColor = '#263159';
-            row.style.color = '#FFFBEB';
-            if (selectedRow) {
-                selectedRow.style.backgroundColor = '';
-                selectedRow.style.color = ''
-            }
-            selectedRow = row;
-        }
-    }
-});
+const botonCTA = document.getElementById('botonScroll');
 
 /*Función para que la cta vaya a la tabla */
-document.getElementById('botonScroll').addEventListener('click', function () {
-    document.getElementById('tabla').scrollIntoView({behavior: 'smooth'});
+botonCTA.addEventListener('click', function () {
+    tabla.scrollIntoView({behavior: 'smooth'});
 });
 
 /*Función para abrir modal */
@@ -243,11 +141,17 @@ async function borrarPodcast(id) {
 
 /*Cargar tabla */
 
-async function cargarTabla() {
-    const podcasts = await obtenerTodosLosPodcasts();
-    const podcastsConFechasJavaScript = podcasts.map(podcast => {
-        podcast.fecha = new Date(podcast.fecha);
-        podcast.fechaFormateada = podcast.fecha.toLocaleDateString("es-ES", {
+async function cargarTabla(titulo) {
+    let podcasts;
+    let podcastsConFechasJavaScript;
+    if (titulo) {
+        podcasts = await buscarPodcast(titulo);
+    } else {
+        podcasts = await obtenerTodosLosPodcasts();
+    }
+    podcastsConFechasJavaScript = podcasts.map(podcast => {
+        let fecha = new Date(podcast.fecha);
+        podcast.fechaFormateada = fecha.toLocaleDateString("es-ES", {
             day: '2-digit',
             month: '2-digit',
             year: '2-digit'
@@ -255,13 +159,20 @@ async function cargarTabla() {
         return podcast;
     });
 
-    const cuerpoTabla = document.getElementById("cuerpo-tabla");
-    cuerpoTabla.innerHTML = plantillaPodcasts({podcasts: podcastsConFechasJavaScript});
+    tabla.innerHTML = plantillaPodcasts({podcasts: podcastsConFechasJavaScript});
 
 }
 
 
-cargarTabla();
+/*Función para buscar por título*/
+const buscador = document.querySelector('.buscador');
+let timeout;
+buscador.addEventListener("input", async () => {
+    clearTimeout(timeout);
+    timeout = setTimeout(cargarTabla, 500);
+    await cargarTabla(buscador.textContent);
+});
+
 
 
 /*Función para crear y editar*/
@@ -307,6 +218,98 @@ botonBorrar.addEventListener("click", async () => {
     }
     await cargarTabla();
 });
+
+/*Funciones para abrir y cerrar el reproductor */
+
+tabla.addEventListener('click', (event) => {
+
+    if (event.target.matches('.play-button-table')) {
+        reproductorCompleto.style.display = 'flex';
+        row = event.target.closest('tr');
+
+        const titulo = row.querySelector('.titulo-fila').textContent;
+        const imagen = row.querySelector('.imagen-dentro-de-tabla').src;
+        const audio = row.querySelector('.audio-dentro-de-tabla').src;
+
+        document.querySelector('.imagen-reproductor').src = imagen;
+        document.querySelector('.titulo-reproductor').textContent = titulo;
+        document.querySelector('.reproductor').src = audio;
+    }
+});
+
+botonCerrar.addEventListener('click', () => {
+    reproductor.pause();
+    reproductorCompleto.style.display = 'none';
+});
+
+
+/*Función para mover el reproductor arrastrándolo con el ratón*/
+let estaEnMovimiento = false;
+let actualX;
+let actualY;
+let inicialX;
+let inicialY;
+let xOffset = 0;
+let yOffset = 0;
+
+
+reproductorCompleto.addEventListener("mousedown", dragStart);
+reproductorCompleto.addEventListener("mouseup", dragEnd);
+reproductorCompleto.addEventListener("mouseout", dragEnd);
+reproductorCompleto.addEventListener("mousemove", drag);
+
+
+function dragStart(e) {
+    inicialX = e.clientX - xOffset;
+    inicialY = e.clientY - yOffset;
+
+    estaEnMovimiento = true;
+}
+
+function dragEnd(e) {
+    estaEnMovimiento = false;
+}
+
+function drag(e) {
+    if (estaEnMovimiento) {
+        e.preventDefault();
+        actualX = e.clientX - inicialX;
+        actualY = e.clientY - inicialY;
+
+        xOffset = actualX;
+        yOffset = actualY;
+
+        setTranslate(actualX, actualY, reproductorCompleto);
+    }
+}
+
+function setTranslate(xPos, yPos, el) {
+    el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
+}
+
+
+/*Función para seleccionar o deseleccionar una fila */
+let selectedRow = null;
+
+tabla.addEventListener('click', (event) => {
+    const row = event.target.parentNode;
+    if (row.tagName === 'TR') {
+        if (row === selectedRow) {
+            row.style.backgroundColor = '';
+            row.style.color = '#251749'
+            selectedRow = null;
+        } else {
+            row.style.backgroundColor = '#263159';
+            row.style.color = '#FFFBEB';
+            if (selectedRow) {
+                selectedRow.style.backgroundColor = '';
+                selectedRow.style.color = ''
+            }
+            selectedRow = row;
+        }
+    }
+});
+
 
 /*Función para el Toast */
 function showToast(message) {
