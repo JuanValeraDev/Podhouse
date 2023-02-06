@@ -16,15 +16,15 @@ de cargar tabla estás cogiéndolos todos.
         episodio: 1,
         temporada: 1,
         fecha: new Date(2020, 0o2, 0o2),
-        imagen: "/img/MM.jpg",
-        audio: "/audios/MM.mp3"
+        imagen: "/img/AHD.jpg",
+        audio: "/audios/AHD-1x72.mp3"
     };
     for (let i = 0; i < 10; i++) {
         guardarPodcast(podcastData);
     }
 }
-crearPodcasts();
-*/
+crearPodcasts();*/
+
 cargarTabla();
 const botonCerrar = document.querySelector('.boton-cerrar-reproductor');
 const reproductorCompleto = document.getElementById('reproductor-completo');
@@ -124,11 +124,15 @@ async function guardarPodcast(podcastData) {
 }
 
 async function obtenerTodosLosPodcasts() {
+    console.log("Voy a entrar en el fetch de obtenerTodosLosPodcasts")
     return await enviarFetch("/podcasts", "GET")
 }
 
 async function buscarPodcast(titulo) {
-    return await enviarFetch("/podcasts", "GET", titulo);
+    console.log("Voy a entrar en el fetch de buscarPodcast")
+    return await enviarFetch(
+        `/podcasts?titulo=${titulo}`, "GET"
+    );
 }
 
 async function editarPodcast(id, podcastData) {
@@ -144,6 +148,7 @@ async function borrarPodcast(id) {
 async function cargarTabla(titulo) {
     let podcasts;
     let podcastsConFechasJavaScript;
+    console.log(titulo)
     if (titulo) {
         podcasts = await buscarPodcast(titulo);
     } else {
@@ -169,10 +174,9 @@ const buscador = document.querySelector('.buscador');
 let timeout;
 buscador.addEventListener("input", async () => {
     clearTimeout(timeout);
-    timeout = setTimeout(cargarTabla, 500);
-    await cargarTabla(buscador.textContent);
-});
 
+    timeout = setTimeout( await cargarTabla(buscador.value), 500);
+});
 
 
 /*Función para crear y editar*/

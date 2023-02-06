@@ -13,6 +13,11 @@ const PodcastSchema = mongoose.Schema(
 
 const Podcast = new mongoose.model("Podcast", PodcastSchema);
 
+
+PodcastSchema.methods.siguenteEpisodio= function (){
+    return podcast.buscar()
+}
+
 exports.conectar = async function () {
     mongoose.set("strictQuery", false);
     await mongoose.connect(process.env.MONGODB_URL);
@@ -67,5 +72,6 @@ exports.editar = async function (id, podcastData) {
 };
 
 exports.borrar = async function (id) {
-    return (await Podcast.deleteOne({_id: id})).deletedCount == 1;
+    return (await Podcast.deleteOne({_id: id})).deletedCount === 1;
 }
+

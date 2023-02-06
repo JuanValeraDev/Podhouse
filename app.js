@@ -21,19 +21,17 @@ app.use((err, req, res, next) => {
 });
 
 app.get("/podcasts", async (req, res) => {
-    if (req.body.titulo) {
-        let busqueda = req.query.titulo.text();
+
+
+    if (req.query.titulo) {
+        let busqueda = req.query.titulo;
+
         res.json(await bd.buscar({titulo: busqueda}));
     } else {
+
         res.json(await bd.buscar({titulo:""}));
     }
 });
-
-/* app.get("/podcasts/:id", async (req, res) => {
-   const podcast = await bd.encontrarPorId(req.params.id);
-   if (podcast) res.json(podcast);
-   else res.status(404);
- });*/
 
 app.post("/podcasts", async (req, res) => {
     const podcast = await bd.guardar(req.body);
