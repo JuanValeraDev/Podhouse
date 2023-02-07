@@ -3,27 +3,60 @@ const mongoose = require("mongoose");
 const PodcastSchema = mongoose.Schema(
     {
         titulo: {type: String, required: true, trim: true, minLength: 3},
-        episodio: {type: Number, required: true},
-        temporada: {type: Number, required: true},
+        episodio: {
+            type: Number,
+            required: true,
+            min: 1,
+            max: 100,
+            validate: function(value) {
+                if (value < 0) {
+                    throw new Error();
+                }
+                return true;
+            }
+        },
+        temporada: {
+            type: Number,
+            required: true,
+            min: 1,
+            max: 10,
+            default: 1,
+            validate: function(value) {
+                if (value < 0) {
+                    throw new Error();
+                }
+                return true;
+            }
+        },
         fecha: {type: Date, required: true},
         imagen: {type: String, required: true},
         audio: {type: String, required: true}
     }
 );
 
+
+
+PodcastSchema.methods.siguienteEpisodio = async function () {
+    let titulo = this.titulo
+    let episodio = this.episodio + 1;
+    let temporada = this.temporada;
+    let resultado = await Podcast.findOne({
+        titulo, episodio, temporada
+    });
+    if (resultado === undefined) {
+        throw new Error("No se ha encontrado el siguiente podcast")
+    }
+    return resultado;
+};
+
+
 const Podcast = new mongoose.model("Podcast", PodcastSchema);
 
-
-PodcastSchema.methods.siguenteEpisodio= function (){
-    return podcast.buscar()
-}
 
 exports.conectar = async function () {
     mongoose.set("strictQuery", false);
     await mongoose.connect(process.env.MONGODB_URL);
-    //Esta línea de abajo es para poder trabajar desde el aula:
-    //await mongoose.connect("mongodb://127.0.0.1:27017/?directConnection=true&serverSelectionTimeoutMS=2000&appName=mongosh+1.6.0");
-};
+   };
 exports.cerrarConexion = async function () {
     await mongoose.disconnect();
 };
@@ -54,7 +87,7 @@ exports.guardar = async function (podcastData) {
 };
 
 exports.encontrarPorId = async function (id) {
-    return await Podcast.findById(id);
+    return Podcast.findById(id);
 };
 
 exports.editar = async function (id, podcastData) {

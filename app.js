@@ -7,6 +7,7 @@ app.use(express.json());
 app.use(express.static('public'));
 
 
+
 bd.conectar().then(() => {
     console.log("Conectado a la base de datos.");
     app.listen(PORT, () =>
@@ -21,14 +22,10 @@ app.use((err, req, res, next) => {
 });
 
 app.get("/podcasts", async (req, res) => {
-
-
     if (req.query.titulo) {
         let busqueda = req.query.titulo;
-
         res.json(await bd.buscar({titulo: busqueda}));
     } else {
-
         res.json(await bd.buscar({titulo:""}));
     }
 });

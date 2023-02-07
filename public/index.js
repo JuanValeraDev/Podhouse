@@ -1,29 +1,3 @@
-/*
-TODO: 
-- !!!Falta implementar el buscador: ten en cuenta que aquí hay dos métodos
-uno para cogerlos todos y otro para buscar por título. En la función
-de cargar tabla estás cogiéndolos todos.
-- Implementar una función para que si le dan a cancelar al modal se borre lo que han escrito
-- Poner el logo de la web
-- Cambiar textos para explicar la nueva idea de negocio
-- Que al darle al play en la tabla se empiece a reproducir directamente el audio.
-*/
-
-/*Función para crear muchos podcasts de golpe*/
-/*async function crearPodcasts() {
-    const podcastData = {
-        titulo: "Prueba",
-        episodio: 1,
-        temporada: 1,
-        fecha: new Date(2020, 0o2, 0o2),
-        imagen: "/img/AHD.jpg",
-        audio: "/audios/AHD-1x72.mp3"
-    };
-    for (let i = 0; i < 10; i++) {
-        guardarPodcast(podcastData);
-    }
-}
-crearPodcasts();*/
 
 cargarTabla();
 const botonCerrar = document.querySelector('.boton-cerrar-reproductor');
@@ -78,7 +52,7 @@ function abrirModal(evt) {
     }
 }
 
-
+/*Función para el fetch*/
 async function enviarFetch(url, metodo, body) {
     try {
         let opciones = {method: metodo};
@@ -124,12 +98,10 @@ async function guardarPodcast(podcastData) {
 }
 
 async function obtenerTodosLosPodcasts() {
-    console.log("Voy a entrar en el fetch de obtenerTodosLosPodcasts")
     return await enviarFetch("/podcasts", "GET")
 }
 
 async function buscarPodcast(titulo) {
-    console.log("Voy a entrar en el fetch de buscarPodcast")
     return await enviarFetch(
         `/podcasts?titulo=${titulo}`, "GET"
     );
@@ -148,7 +120,6 @@ async function borrarPodcast(id) {
 async function cargarTabla(titulo) {
     let podcasts;
     let podcastsConFechasJavaScript;
-    console.log(titulo)
     if (titulo) {
         podcasts = await buscarPodcast(titulo);
     } else {
@@ -175,7 +146,7 @@ let timeout;
 buscador.addEventListener("input", async () => {
     clearTimeout(timeout);
 
-    timeout = setTimeout( await cargarTabla(buscador.value), 500);
+    timeout = setTimeout(await cargarTabla(buscador.value), 500);
 });
 
 
