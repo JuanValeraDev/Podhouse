@@ -22,13 +22,19 @@ app.use((err, req, res, next) => {
 });
 
 app.get("/podcasts", async (req, res) => {
-    if (req.query.titulo) {
-        let busqueda = req.query.titulo;
-        res.json(await bd.buscar({titulo: busqueda}));
-    } else {
-        res.json(await bd.buscar({titulo:""}));
-    }
+   try {
+       if (req.query.titulo) {
+           let busqueda = req.query.titulo;
+           res.set("Content-type", "application/json").status(200).json(await bd.buscar({titulo: busqueda}));
+       } else {
+           res.set("Content-type", "application/json").status(200).json(await bd.buscar({titulo: ""}));
+       }
+   }catch (e){
+       res.status(400).send();
+   }
 });
+
+
 
 app.post("/podcasts", async (req, res) => {
     const podcast = await bd.guardar(req.body);
@@ -43,7 +49,7 @@ app.put("/podcasts/:id", async (req, res) => {
     } else if (podcastEditado === undefined) {
         res.status(400).send();
     } else {
-        res.location(`/podcasts/${podcastEditado._id}`).status(201).send();
+        res.status(204).send();
     }
 });
 
@@ -51,7 +57,7 @@ app.delete("/podcasts/:id", async (req, res) => {
     if (await bd.borrar(req.params.id)) {
         res.status(204).send();
     } else {
-        res.sendStatus(404).send();
+        res.status(404).send();
     }
 });
 
