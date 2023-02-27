@@ -3,12 +3,13 @@ const mongoose = require("mongoose");
 const PodcastSchema = mongoose.Schema(
     {
         titulo: {type: String, required: true, trim: true, minLength: 3},
+        duracion: {type: String, required: true},
         episodio: {
             type: Number,
             required: true,
             min: 1,
             max: 100,
-            validate: function(value) {
+            validate: function (value) {
                 if (value < 0) {
                     throw new Error();
                 }
@@ -21,7 +22,7 @@ const PodcastSchema = mongoose.Schema(
             min: 1,
             max: 10,
             default: 1,
-            validate: function(value) {
+            validate: function (value) {
                 if (value < 0) {
                     throw new Error();
                 }
@@ -34,8 +35,13 @@ const PodcastSchema = mongoose.Schema(
     }
 );
 
-
-
+const ReviewSchema = mongoose.Schema({
+    podcastId: {type: String, required: true},
+    autor: {type: String, required: true},
+    fecha: {type: Date},
+    puntuacion: {type: Number, required: true},
+    texto: {type: String}
+})
 PodcastSchema.methods.siguienteEpisodio = async function () {
     let titulo = this.titulo
     let episodio = this.episodio + 1;
@@ -51,12 +57,12 @@ PodcastSchema.methods.siguienteEpisodio = async function () {
 
 
 const Podcast = new mongoose.model("Podcast", PodcastSchema);
-
+const Review = new mongoose.model("Review", ReviewSchema);
 
 exports.conectar = async function () {
     mongoose.set("strictQuery", false);
     await mongoose.connect(process.env.MONGODB_URL);
-   };
+};
 exports.cerrarConexion = async function () {
     await mongoose.disconnect();
 };
@@ -87,7 +93,15 @@ exports.guardar = async function (podcastData) {
 };
 
 exports.encontrarPorId = async function (id) {
-    return Podcast.findById(id);
+    try {
+        const podcast = Podcast.findById(id);
+        if (podcast === null) {
+            return null;
+        }
+        return podcast;
+    } catch (e) {
+        return undefined;
+    }
 };
 
 exports.editar = async function (id, podcastData) {
@@ -106,5 +120,52 @@ exports.editar = async function (id, podcastData) {
 
 exports.borrar = async function (id) {
     return (await Podcast.deleteOne({_id: id})).deletedCount === 1;
+}
+exports.buscarReview = async function (params) {
+    const consulta = Review.find();
+    const podcastId = {podcastId: params.podcastId};
+    consulta.and(podcastId);
+    return await consulta.exec();
+};
+
+
+
+exports.guardarReview = async function (reviewData) {
+    try {
+        const review = new Review(reviewData);
+        return await review.save();
+    } catch (err) {
+        return undefined;
+    }
+};
+
+exports.encontrarReviewPorId = async function (id) {
+    try {
+        const review = Review.findById(id);
+        if (review === null) {
+            return null;
+        }
+        return review;
+    } catch (e) {
+        return undefined;
+    }
+};
+
+exports.editarReview = async function (id, reviewData) {
+    try {
+        const review = await exports.encontrarReviewPorId(id);
+        if (review === null) {
+            return null;
+        }
+        await Object.assign(review, reviewData);
+        await review.save();
+        return review;
+    } catch (err) {
+        return undefined;
+    }
+};
+
+exports.borrarReview = async function (id) {
+    return (await Review.deleteOne({_id: id})).deletedCount === 1;
 }
 

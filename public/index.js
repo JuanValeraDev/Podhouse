@@ -1,4 +1,3 @@
-
 cargarTabla();
 const botonCerrar = document.querySelector('.boton-cerrar-reproductor');
 const reproductorCompleto = document.getElementById('reproductor-completo');
@@ -14,20 +13,23 @@ botonCTA.addEventListener('click', function () {
 /*Función para abrir modal */
 const modalBootstrap = new bootstrap.Modal(document.getElementById('modal'));
 const frmTitulo = document.getElementById('frmTitulo');
+const frmDuracion = document.getElementById('frmDuracion');
 const frmEpisodio = document.getElementById('frmEpisodio');
 const frmTemporada = document.getElementById('frmTemporada');
 const frmFecha = document.getElementById('frmFecha');
 const frmImagen = document.getElementById('frmImagen');
+const frmAudio = document.getElementById('frmAudio');
+
 let esEdicion = false;
 
-document.getElementById('boton-editar').addEventListener('click', abrirModal);
-document.getElementById('boton-insertar').addEventListener('click', abrirModal);
 const audioModal = document.getElementById('audio-modal');
+document.getElementById('boton-insertar').addEventListener('click', abrirModal);
 
 function abrirModal(evt) {
     if (evt.target.classList.contains('boton-insertar')) {
         audioModal.classList.remove("d-none");
         frmTitulo.placeholder = "Nombre del programa";
+        frmDuracion.placeholder = "Tiempo de duración"
         frmEpisodio.placeholder = "Número de episodio";
         frmTemporada.placeholder = "Número de temporada";
         frmFecha.placeholder = "Fecha";
@@ -37,45 +39,39 @@ function abrirModal(evt) {
         esEdicion = true;
         if (selectedRow) {
             audioModal.classList.add("d-none");
-            const tituloPodcast = selectedRow.querySelector('.titulo-fila').textContent;
-            const episodioPodcast = selectedRow.querySelector('.episodio-fila').textContent;
-            const temporadaPodcast = selectedRow.querySelector('.temporada-fila').textContent;
-            const fechaPodcast = selectedRow.querySelector('.fecha-fila').textContent;
-            const imagenPodcast = selectedRow.querySelector('.imagen-dentro-de-tabla').src;
-            frmTitulo.value = tituloPodcast;
-            frmEpisodio.value = episodioPodcast;
-            frmTemporada.value = temporadaPodcast;
-            frmFecha.value = fechaPodcast;
-            frmImagen.vaue = imagenPodcast;
+            frmTitulo.value = selectedRow.querySelector('.titulo-fila').textContent;
+            frmDuracion.value = selectedRow.querySelector('.duracion-fila').textContent;
+            frmEpisodio.value = selectedRow.querySelector('.episodio-fila').textContent;
+            frmTemporada.value = selectedRow.querySelector('.temporada-fila').textContent;
+            frmFecha.value = selectedRow.querySelector('.fecha-fila').textContent;
+            frmImagen.vaue = selectedRow.querySelector('.imagen-dentro-de-tabla').src;
             modalBootstrap.show();
         }
     }
 }
 
+
 /*Función para el fetch*/
 async function enviarFetch(url, metodo, body) {
     try {
-        let opciones = {method: metodo};
+        let request = {method: metodo};
         if (body) {
-            opciones.body = JSON.stringify(body);
-            opciones.headers = {"Content-type": "application/json"};
+            request.body = JSON.stringify(body);
+            request.headers = {"Content-type": "application/json"};
         }
-        const respuesta = await fetch(url, opciones);
+        const respuesta = await fetch(url, request);
         if (!respuesta.ok) {
             throw new Error(`Error ${respuesta.status}: ${respuesta.statusText}`);
         }
         if (respuesta.ok) {
-            if (opciones.method === 'PUT') {
+            if (request.method === 'PUT') {
                 showToast("Podcast editado con éxito");
-                console.log('Podcast editado con éxito');
             }
-            if (opciones.method === 'POST') {
+            if (request.method === 'POST') {
                 showToast("Podcast guardado con éxito");
-                console.log('Podcast creado con éxito');
             }
-            if (opciones.method === 'DELETE') {
+            if (request.method === 'DELETE') {
                 showToast("Podcast borrado con éxito");
-                console.log('Podcast borrado con éxito');
             }
             const tipoMIME = respuesta.headers.get("content-type");
             if (tipoMIME && tipoMIME.startsWith("application/json")) {
@@ -145,7 +141,6 @@ const buscador = document.querySelector('.buscador');
 let timeout;
 buscador.addEventListener("input", async () => {
     clearTimeout(timeout);
-
     timeout = setTimeout(await cargarTabla(buscador.value), 500);
 });
 
@@ -159,6 +154,7 @@ botonGuardar.addEventListener("click", async () => {
         const id = selectedRow.dataset.id;
         const podcastDataEdicion = {
             titulo: frmTitulo.value,
+            duracion: frmDuracion.value,
             episodio: frmEpisodio.value,
             temporada: frmTemporada.value,
             fecha: frmFecha.value,
@@ -170,6 +166,7 @@ botonGuardar.addEventListener("click", async () => {
     } else {
         const podcastData = {
             titulo: frmTitulo.value,
+            duracion: frmDuracion.value,
             episodio: frmEpisodio.value,
             temporada: frmTemporada.value,
             fecha: frmFecha.value,
@@ -262,7 +259,6 @@ function setTranslate(xPos, yPos, el) {
     el.style.transform = "translate3d(" + xPos + "px, " + yPos + "px, 0)";
 }
 
-
 /*Función para seleccionar o deseleccionar una fila */
 let selectedRow = null;
 
@@ -273,15 +269,28 @@ tabla.addEventListener('click', (event) => {
             row.style.backgroundColor = '';
             row.style.color = '#251749'
             selectedRow = null;
+
         } else {
             row.style.backgroundColor = '#263159';
             row.style.color = '#FFFBEB';
+
             if (selectedRow) {
                 selectedRow.style.backgroundColor = '';
                 selectedRow.style.color = ''
             }
             selectedRow = row;
         }
+    }
+    if (selectedRow === null) {
+        botonVerReviews.style.display = 'none';
+        botonPonerReviews.style.display = 'none';
+        botonEditar.style.display='none';
+        botonBorrar.style.display='none';
+    } else {
+        botonVerReviews.style.display = 'flex';
+        botonPonerReviews.style.display = 'flex';
+        botonEditar.style.display = 'flex';
+        botonBorrar.style.display = 'flex';
     }
 });
 
@@ -304,6 +313,131 @@ function showToast(message) {
     setTimeout(() => {
         toast.remove();
     }, 3000);
+}
+
+
+/*Función para abrir el modal de añadir reviews*/
+
+const modalPonerReviews = new bootstrap.Modal(document.getElementById('modalPonerReviews'));
+const modalVerReviews = new bootstrap.Modal(document.getElementById('modalVerReviews'));
+const frmAutor = document.getElementById('frmAutorReview');
+const frmFechaReview = document.getElementById('frmFechaReview');
+const frmPuntuacion = document.getElementById('frmPuntuacion');
+const frmTexto = document.getElementById('frmTextoReview');
+
+const botonVerReviews = document.getElementById('boton-ver-reviews');
+const botonPonerReviews = document.getElementById('boton-poner-reviews');
+const botonEditar = document.getElementById('boton-editar');
+
+
+botonEditar.addEventListener('click', abrirModal);
+botonPonerReviews.addEventListener('click', abrirModalPonerReviews);
+botonVerReviews.addEventListener('click', abrirModalVerReviews);
+
+function abrirModalPonerReviews() {
+    if (selectedRow) {
+        modalPonerReviews.show();
+    }
+}
+
+function abrirModalVerReviews() {
+    if (selectedRow) {
+        cargarTablaReviews();
+        modalVerReviews.show();
+    }
+}
+
+/*Función para guardar la review*/
+const botonGuardarReview = document.getElementById("boton-guardar-modal-review");
+botonGuardarReview.addEventListener("click", async () => {
+    modalPonerReviews.hide();
+
+    const reviewData = {
+        podcastId: selectedRow.dataset.id,
+        autor: frmAutor.value,
+        fecha: frmFechaReview.value,
+        puntuacion: frmPuntuacion.value,
+        texto: frmTexto.value,
+    };
+
+    await guardarReview(reviewData);
+});
+
+/*Función para enviar el fetch para la review*/
+async function enviarFetchReview(url, metodo, body) {
+    try {
+        let req = {method: metodo};
+        if (body) {
+            req.body = JSON.stringify(body);
+            req.headers = {"Content-type": "application/json"};
+        }
+        const respuesta = await fetch(url, req);
+        if (!respuesta.ok) {
+            throw new Error(`Error ${respuesta.status}: ${respuesta.statusText}`);
+        }
+        if (respuesta.ok) {
+            if (req.method === 'PUT') {
+                showToast("Review editada con éxito");
+            }
+            if (req.method === 'POST') {
+                showToast("Review guardada con éxito");
+            }
+            if (req.method === 'DELETE') {
+                showToast("Review borrada con éxito");
+            }
+            const tipoMIME = respuesta.headers.get("content-type");
+            if (tipoMIME && tipoMIME.startsWith("application/json")) {
+                return await respuesta.json();
+            } else {
+                return await respuesta.text();
+            }
+        } else {
+            throw respuesta.statusText;
+        }
+    } catch (error) {
+        console.error(`Error al enviar la petición ${metodo} a ${url}: ${error}`);
+        return error.message;
+    }
+}
+
+/*CRUD */
+async function guardarReview(reviewData) {
+    return await enviarFetchReview("/reviews/", "POST", reviewData);
+}
+
+async function obtenerLasReviewsDeUnPodcast(podcastId) {
+    return await enviarFetchReview(`/reviews?podcastId=${podcastId}`, "GET")
+}
+
+
+async function editarReview(id, reviewData) {
+    return await enviarFetchReview(`/reviews/${id}`, "PUT", reviewData);
+}
+
+async function borrarReview(id) {
+    return await enviarFetchReview(`/reviews/${id}`, "DELETE");
+}
+
+
+/*Función para cargar tabla de ver reviews*/
+const tablaReviews = document.getElementById('cuerpo-tabla-reviews');
+
+async function cargarTablaReviews() {
+    let reviews;
+    let reviewsConFechasJavaScript;
+    if (selectedRow) {
+        reviews = await obtenerLasReviewsDeUnPodcast(selectedRow.dataset.id);
+        reviewsConFechasJavaScript = reviews.map(review => {
+            let fecha = new Date(review.fecha);
+            review.fechaFormateada = fecha.toLocaleDateString("es-ES", {
+                day: '2-digit',
+                month: '2-digit',
+                year: '2-digit'
+            });
+            return review;
+        });
+        tablaReviews.innerHTML = plantillaReviews({reviews: reviewsConFechasJavaScript});
+    }
 }
 
 

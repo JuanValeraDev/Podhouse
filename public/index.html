@@ -1,7 +1,6 @@
 <!doctype html>
 <html lang="es">
-<!--TODO: 
--->
+
 
 <head>
     <meta charset="utf-8">
@@ -22,7 +21,7 @@
 
 <body class="column flex-grow-1 m-0 ">
 
-<header class="justify-content-around py-3 mb-4 fixed-top">
+<header class="d-flex justify-content-around py-3 mb-4 fixed-top">
     <div class="fs-1"> PodHouse</div>
     <div class="fs-4 d-flex align-items-center frase-header">La casa de los podcasts</div>
 </header>
@@ -44,21 +43,26 @@
 
         <input type="search" class="col-md-5 col-10 buscador" placeholder="Busca aquí tu programa"/>
 
-        <div class="botonera d-flex col-md-6 gx-5 mt-2">
-            <button type="button" class="col-md-3  btn shadow my-2 boton-editar" id="boton-editar">Editar</button>
-            <button type="button" class="col-md-3  btn shadow my-2 boton-insertar"
+        <div class="botonera d-flex col-md-6 gx-5 mt-2 align-items-center">
+            <button type="button" class="col-md-2  btn shadow my-2 boton-editar" id="boton-editar">Editar</button>
+            <button type="button" class="col-md-2  btn shadow my-2 boton-insertar"
                     id="boton-insertar">Insertar
             </button>
-            <button type="button" class="col-md-3  btn shadow my-2 boton-borrar" id="boton-borrar">Borrar</button>
+            <button type="button" class="col-md-2  btn shadow my-2 boton-borrar" id="boton-borrar">Borrar</button>
+            <button type="button" class="col-md-2  btn shadow my-2 " id="boton-poner-reviews">Poner Review
+            </button>
+            <button type="button" class="col-md-2  btn shadow my-2 " id="boton-ver-reviews">Ver Reviews
+            </button>
         </div>
     </div>
     <div class="row  justify-content-center d-flex flex-wrap mx-4">
         <table class="table table-hover overflow-auto col-md" id="tabla">
             <thead>
             <tr>
-                <th class="col-lg-3">Programa</th>
-                <th class="col-lg-1 col-episodio">Episodio</th>
-                <th class="col-lg-1 col-temporada">Temporada</th>
+                <th class="col-lg-2">Programa</th>
+                <th class="col-lg-1">Duración</th>
+                <th class="col-lg-1 col-episodio"></th>
+                <th class="col-lg-1 col-temporada"></th>
                 <th class="col-lg-1 fecha-tabla">Fecha</th>
                 <th class="col-lg-1"></th>
             </tr>
@@ -92,16 +96,22 @@
                                minlength="1">
                     </div>
                     <div class="col">
-                        <div class="contenedorTemporada text-end">
-                            <label for="frmTemporada" class="form-label">Temporada</label>
+                        <div class="contenedorTemporada">
+                            <label for="frmTemporada" class="form-label textoTemporada">Temporada</label>
                             <input type="number" class="form-control" id="frmTemporada"
                                    placeholder="Número de temporada" minlength="1">
                         </div>
                     </div>
                 </div>
-                <div class="mb-3">
-                    <label for="frmFecha" class="form-label">Fecha</label>
-                    <input type="date" class="form-control" id="frmFecha" placeholder="Fecha" minlength="1">
+                <div class="mb-3 row">
+                    <div class="col">
+                        <label for="frmDuracion" class="form-label">Duración</label>
+                        <input type="text" class="form-control" id="frmDuracion" placeholder="Duración" minlength="1">
+                    </div>
+                    <div class="col">
+                        <label for="frmFecha" class="form-label textoFecha">Fecha</label>
+                        <input type="date" class="form-control" id="frmFecha" placeholder="Fecha" minlength="1">
+                    </div>
                 </div>
                 <div class="mb-3">
                     <label for="frmimagen" class="form-label">Imagen</label>
@@ -123,6 +133,82 @@
         </div>
     </div>
 </div>
+<div class="text-black modal fade" id="modalPonerReviews" tabindex="-1"
+     aria-labelledby="modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modal-label-poner-reviews">Poner Reviews</h1>
+                <button type="button" class="btn-close boton-cerrar-modal" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3 row">
+                    <div class="col">
+                        <label for="frmAutorReview" class="form-label">Autor</label>
+                        <input type="text" class="form-control" id="frmAutorReview" placeholder="Autor" minlength="1">
+                    </div>
+                    <div class="col">
+                        <label for="frmFechaReview" class="form-label textoFecha">Fecha</label>
+                        <input type="date" class="form-control" id="frmFechaReview" placeholder="Fecha" minlength="1">
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="frmPuntuacion" class="form-label">Puntuación</label>
+                    <input type="text" class="form-control" id="frmPuntuacion" placeholder="Puntuación"
+                           minlength="1">
+                </div>
+                <div class="mb-3">
+                    <label for="frmTextoReview" class="form-label">Texto</label>
+                    <input type="text" class="form-control" id="frmTextoReview" placeholder="Texto"
+                           minlength="1">
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" id="boton-cerrar-modal-review">
+                    Cerrar
+                </button>
+                <button type="button" class="btn btn-light " id="boton-guardar-modal-review">Guardar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="text-black modal fade" id="modalVerReviews" tabindex="-1"
+     aria-labelledby="modal-label" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="modal-label-ver-reviews">Ver Reviews</h1>
+                <button type="button" class="btn-close boton-cerrar-modal" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row  justify-content-center d-flex flex-wrap mx-4">
+                    <table class="table table-hover overflow-auto col-md" id="tabla-reviews">
+                        <thead>
+                        <tr>
+                            <th class="col-lg-1">Autor</th>
+                            <th class="col-lg-1">Fecha</th>
+                            <th class="col-lg-1">Puntuación</th>
+                            <th class="col-lg-1">Texto</th>
+                        </tr>
+                        </thead>
+                        <tbody id="cuerpo-tabla-reviews">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" id="boton-cerrar-modal-ver-reviews">
+                    Cerrar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <div class="col-4 reproductor-completo rounded-4 fixed-bottom" id="reproductor-completo">
     <img src="" alt="" class="imagen-reproductor rounded-4">
@@ -138,8 +224,6 @@
 <div id="toastContainer"/>
 
 
-
-
 <footer class="py-3 mt-4 d-flex flex-wrap justify-content-around">
     <p class="text-center">Juan Valera Productions</p>
 </footer>
@@ -152,9 +236,8 @@
         integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V"
         crossorigin="anonymous"></script>
 <script src="plantillaPodcasts.js"></script>
+<script src="plantillaReviews.js"></script>
 <script src="index.js"></script>
-
-
 
 
 </body>

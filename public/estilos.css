@@ -1,25 +1,15 @@
-/*
-TODO: 
-*/
 
 body {
-
     background-image: url("./img/background.png");
     background-size: contain;
-    background-color: #FFFBEB;
     position: relative;
-
-
 }
 
 header {
     color: #FFFBEB;
     background-color: #263159;
-    display: flex;
-    justify-content: space-around;
     font-family: 'Laila', serif;
     background-size: cover;
-
 }
 
 .btn {
@@ -34,8 +24,6 @@ header {
 }
 
 footer {
-    display: flex;
-    justify-content: space-around;
     background-color: #263159;
     background-size: cover;
     color: #FFFBEB;
@@ -76,7 +64,6 @@ footer {
 }
 
 .botonera {
-    align-items: center;
     gap: 1em;
     justify-content: center;
 }
@@ -145,13 +132,16 @@ tbody>tr:hover {
         justify-content: space-around;
     }
 
-    .fecha-tabla {
-        display: hidden;
+    th:nth-child(5),
+    td:nth-child(5) {
+        display: none;
     }
 
-    th:nth-child(4),
-    td:nth-child(4) {
-        display: none;
+    th.col-episodio::before {
+        content: "Ep.";
+    }
+    th.col-temporada::before {
+        content: "Temp.";
     }
 
 
@@ -212,6 +202,12 @@ tbody>tr:hover {
     .titulo-y-boton {
         justify-content: space-around;
     }
+    th.col-episodio::before {
+        content: "Episodio";
+    }
+    th.col-temporada::before {
+        content: "Temporada";
+    }
 }
 
 
@@ -245,4 +241,16 @@ tbody>tr:hover {
 .boton-cerrar-modal {
     color: #FFFBEB;
     background-color: #FFFBEB;
+}
+
+.textoFecha, .textoTemporada{
+    -webkit-text-stroke: 1px white;
+
+}
+#cuerpo-tabla-reviews{
+    background-color: #251749;
+    color: #FFFBEB;
+}
+#boton-ver-reviews, #boton-poner-reviews, #boton-editar, #boton-borrar{
+    display: none;
 }
